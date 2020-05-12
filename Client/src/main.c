@@ -22,7 +22,7 @@ int main(int ac, char **av)
         display_help(av[0]);
         return 0;
     } else if (ac == 3) {
-        init_client(cli, av[1], (unsigned short)atoi(av[1]));
+        init_client(cli, av[1], (unsigned short)atoi(av[2]));
         client_run(cli);
     }
     return 0;
