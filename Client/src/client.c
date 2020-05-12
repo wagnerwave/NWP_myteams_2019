@@ -7,16 +7,17 @@
 
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "client.h"
 
 void client_run(client_t *cli)
 {
-    char *input = NULL;
+    size_t size = 1024;
+    char *buffer = malloc(sizeof(char) * size);
 
     while (1) {
-        input = get_next_line(cli->tcp_sock);
-        if (input == NULL)
-            return;
-            write(cli->tcp_sock, input, strlen(input));
+        getline(&buffer, &size, stdin);
+        write(cli->tcp_sock, buffer, strlen(buffer));
     }
 }
