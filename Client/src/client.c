@@ -15,6 +15,8 @@ void client_run(client_t *cli)
 
     while (1) {
         input = get_next_line(cli->tcp_sock);
-        write(cli->tcp_sock, input, strlen(input));
+        if (input == NULL)
+            return;
+            write(cli->tcp_sock, input, strlen(input));
     }
 }
