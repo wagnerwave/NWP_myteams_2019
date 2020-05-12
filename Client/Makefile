@@ -18,7 +18,7 @@ SRC		=	$(D_SRC)main.c \
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS	+=	-Wall -Wextra -I$(D_INC)
+CFLAGS	+=	-W -Wall -Wextra -I$(D_INC)
 
 all		:	$(NAME)
 
@@ -26,7 +26,7 @@ $(NAME)	:	$(OBJ)
 			gcc -o $(NAME) $(OBJ) $(CFLAGS)
 
 clean	:
-		rm -rf $(OBJ) $(CFLAGS)
+			rm -rf $(OBJ)
 
 fclean	:	clean
 			rm -rf $(NAME)
