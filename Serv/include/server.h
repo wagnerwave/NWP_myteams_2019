@@ -36,6 +36,7 @@ typedef struct client_s {
 
 char *get_next_line(int fd);
 char **strtowordarray(char *str, char delim);
+void display_help(char *nameprog);
 
 void interpert_client_input(client_t *cli, char *input);
 

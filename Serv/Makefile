@@ -27,7 +27,8 @@ all		:	$(NAME)
 $(NAME)	:	$(OBJ)
 			gcc -o $(NAME) $(OBJ) $(CFLAGS)
 
-clean	:	rm -f $(OBJ) $(CFLAGS)
+clean	:
+			rm -f $(OBJ)
 
 fclean	:	clean
 			rm -f $(NAME)

@@ -5,6 +5,9 @@
 ** main of server
 */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 #include "server.h"
 
 int main(int ac, char **av)
@@ -17,7 +20,7 @@ int main(int ac, char **av)
         display_help(av[0]);
         return 0;
     } else {
-        init_server(svr, (unsigned short)av[1]);
+        init_server(svr, (unsigned short)atoi(av[1]));
         teams_server(svr);
     }
     return 0;

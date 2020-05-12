@@ -9,5 +9,6 @@
 
 void interpert_client_input(client_t *cli, char *input)
 {
-    printf("%s\n", input);
+    printf("SERVER GET : %s\n", input);
+    write(cli->fd, "WE GET THE MSG\n", 17);
 }
