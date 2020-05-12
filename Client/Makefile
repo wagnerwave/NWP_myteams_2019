@@ -10,21 +10,26 @@ D_INC	=	./include/
 
 NAME	=	../myteams_cli
 
-SRC		=	$(D_SRC)main.c
+SRC		=	$(D_SRC)main.c \
+			$(D_SRC)getnextline.c \
+			$(D_SRC)help.c \
+			$(D_SRC)init.c \
+			$(D_SRC)client.c
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS	+=	-W -Wall -Wextra -I$(D_INC)
+CFLAGS	+=	-Wall -Wextra -I$(D_INC)
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
 			gcc -o $(NAME) $(OBJ) $(CFLAGS)
 
-clean	:	rm -f $(OBJ) $(CFLAGS)
+clean	:
+		rm -rf $(OBJ) $(CFLAGS)
 
 fclean	:	clean
-			rm -f $(NAME)
+			rm -rf $(NAME)
 
 re		:	fclean all
 

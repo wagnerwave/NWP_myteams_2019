@@ -12,7 +12,7 @@ int main(int ac, char **av)
     server_t *svr = malloc(sizeof(server_t));
 
     if (ac != 2)
-        return 0;
+        return 84;
     if (strcmp(av[1], "-help") == 0) {
         display_help(av[0]);
         return 0;

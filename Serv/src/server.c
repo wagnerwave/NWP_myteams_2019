@@ -55,7 +55,7 @@ void teams_server(server_t *srv)
     default_init_client(cli);
     FD_ZERO(&activ_group_fd);
     FD_SET(srv->tcp_sock, &activ_group_fd);
-    while(1) {
+    while (1) {
         read_group_fd = activ_group_fd;
         if (select(FD_SETSIZE, &read_group_fd, NULL, NULL, NULL) < 0)
             exit(84);
