@@ -18,11 +18,9 @@ void client_run(client_t *cli)
     if (buffer == NULL)
         exit(84);
     while (1) {
-        bzero(buffer, sizeof(buffer));
+        bzero(buffer, strlen(buffer));
         for (int i = 0; (buffer[i] = getchar()) != '\n'; i++);
-        write(cli->tcp_sock, buffer, sizeof(buffer));
-        bzero(buffer, sizeof(buffer));
-        read(cli->tcp_sock, buffer, sizeof(buffer));
-        printf("%s", buffer);
+        write(cli->tcp_sock, buffer, strlen(buffer));
+        bzero(buffer, strlen(buffer));
     }
 }
