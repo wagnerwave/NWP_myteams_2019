@@ -5,7 +5,7 @@
 ** help for client
 */
 
-#include <stdlib.h>
+#include <stdio.h>
 
 void display_help(char *nameprog)
 {

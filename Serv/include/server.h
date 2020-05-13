@@ -32,6 +32,28 @@ typedef struct client_s {
     int fd;
 } client_t;
 
+typedef union libfunc_u {
+    int (*four_param)(char const *one, char const *two, char const *three,
+    char const *four);
+    int (*three_param)(char const *one, char const *two, char const *three);
+    int (*two_param)(char const *one, char const *two);
+    int (*one_param)(char const *one);
+    int (*zero_param)(void);
+} libfunc_t;
+
+typedef union func_u {
+    void (*one_param)(client_t *cli);
+} func_t;
+
+typedef struct cmd_s {
+    char *name;
+    libfunc_t libfunc;
+    func_t    func;
+    char *desc;
+} cmd_t;
+
+extern const cmd_t cmd[];
+
 /****   TOOLS   ****/
 
 char *get_next_line(int fd);
@@ -49,6 +71,10 @@ void default_init_client(client_t **cli);
 /****   SERVER  ****/
 
 void teams_server(server_t *svr);
+
+/****   CMD     ****/
+
+void help(client_t *cli);
 
 /****   ERROR   ****/
 

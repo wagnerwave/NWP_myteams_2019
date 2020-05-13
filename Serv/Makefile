@@ -16,6 +16,8 @@ SRC		=	$(D_SRC)main.c	\
 			$(D_SRC)getnextline.c \
 			$(D_SRC)strtowordarray.c \
 			$(D_SRC)interpret.c \
+			$(D_SRC)commands.c \
+			$(D_SRC)info_cmd.c \
 			$(D_SRC)server.c
 
 OBJ		=	$(SRC:.c=.o)
