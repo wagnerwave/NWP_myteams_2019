@@ -9,8 +9,8 @@ SERVER	=	./Serv/
 CLIENT	=	./Client/
 
 all		:
-			serv
-			client
+			@make serv
+			@make client
 
 serv	:
 			@make -C $(SERVER)

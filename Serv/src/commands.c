@@ -10,6 +10,6 @@
 #include "logging_server.h"
 
 const cmd_t cmd[] = {
-    {"/help", NULL, {&help},"show help"},
+    {"/help", NULL, {&help}, "show help"},
     {NULL, NULL, NULL, NULL}
 };

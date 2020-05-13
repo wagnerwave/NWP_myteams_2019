@@ -13,18 +13,16 @@
 
 void client_run(client_t *cli)
 {
-    size_t size = 1024;
-    char *buffer = malloc(sizeof(char) * size);
-    char *receved = NULL;
+    char *buffer = malloc(sizeof(char) * 1024);
 
     if (buffer == NULL)
         exit(84);
     while (1) {
-        getline(&buffer, &size, stdin);
-        write(cli->tcp_sock, buffer, strlen(buffer));
-        receved = get_next_line(cli->tcp_sock);
-        if (receved == NULL)
-            exit(84);
-        printf("%s\n", receved);
+        bzero(buffer, sizeof(buffer));
+        for (int i = 0; (buffer[i] = getchar()) != '\n'; i++);
+        write(cli->tcp_sock, buffer, sizeof(buffer));
+        bzero(buffer, sizeof(buffer));
+        read(cli->tcp_sock, buffer, sizeof(buffer));
+        printf("%s", buffer);
     }
 }
