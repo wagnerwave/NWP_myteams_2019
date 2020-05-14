@@ -11,6 +11,14 @@
 #include <stdlib.h>
 #include "server.h"
 
+static void interract_cmd_to_client(cmd_t *cmd, client_t *cli, char **txt)
+{
+    if (cmd->myfunc != NULL)
+        cmd->myfunc(cli, txt);
+    if (cmd->libfunc != NULL)
+        cmd->libfunc(cli, txt);
+}
+
 static void free_input(char **content)
 {
     for (size_t x = 0; content[x]; x++)
@@ -27,8 +35,9 @@ void interpert_client_input(client_t *cli, char *input)
         if (strcmp(cmd[i].name, content[0]) == 0)
             break;
     if (cmd[i].name != NULL)
-        (*cmd[i].func.one_param)(cli);
+        interract_cmd_to_client(&cmd[i], cli, content);
     else
         printf("SERVER GET : %s\n", input);
+        //display and store message to environement chanelle etc...
     free_input(content);
 }

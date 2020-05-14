@@ -12,8 +12,14 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <sys/queue.h>
+#include <uuid/uuid.h>
+#include <stdbool.h>
 
 #define MAX_CONNECTION_SERVER 1024
+#define MAX_DESCRIPTION_LENGTH 255
+#define MAX_BODY_LENGTH 521
+#define MAX_NAME_LENGTH 32
 #define SPACE 32
 
 typedef struct server_s {
@@ -22,33 +28,44 @@ typedef struct server_s {
     int tcp_sock;
 } server_t;
 
+typedef struct teams_s {
+    char name[MAX_NAME_LENGTH];
+    char desc[MAX_DESCRIPTION_LENGTH];
+    uuid_t id;
+} teams_t;
+
+typedef struct channel_s {
+    char  name[MAX_NAME_LENGTH];
+    char desc[MAX_DESCRIPTION_LENGTH];
+    uuid_t id;
+} channel_t;
+
+typedef struct thread_s {
+    char *title;
+    char *msg;
+    uuid_t id;
+} thread_t ;
+
+typedef struct comment_s {
+    char body[MAX_BODY_LENGTH];
+} comment_t;
+
 typedef struct user_s {
     char *username;
+    uuid_t user_id;
 } user_t;
 
 typedef struct client_s {
     fd_set *group_fd;
     user_t user;
     int fd;
+    bool connected;
 } client_t;
-
-typedef union libfunc_u {
-    int (*four_param)(char const *one, char const *two, char const *three,
-    char const *four);
-    int (*three_param)(char const *one, char const *two, char const *three);
-    int (*two_param)(char const *one, char const *two);
-    int (*one_param)(char const *one);
-    int (*zero_param)(void);
-} libfunc_t;
-
-typedef union func_u {
-    void (*one_param)(client_t *cli);
-} func_t;
 
 typedef struct cmd_s {
     char *name;
-    libfunc_t libfunc;
-    func_t    func;
+    void (*libfunc)(client_t *cli, char **txt);
+    void (*myfunc)(client_t *cli, char **txt);
     char *desc;
 } cmd_t;
 
@@ -74,7 +91,7 @@ void teams_server(server_t *svr);
 
 /****   CMD     ****/
 
-void help(client_t *cli);
+void help(client_t *cli, char **txt);
 
 /****   ERROR   ****/
 
