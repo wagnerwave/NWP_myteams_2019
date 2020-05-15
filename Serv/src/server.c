@@ -18,13 +18,13 @@ static void client_management(client_t *cli)
     int n = 0;
     char *buffer = malloc(sizeof(char) * 1024);
 
-    bzero(buffer, 256);
-    n = read(cli->fd, buffer, 255);
+    bzero(buffer, 1024);
+    n = read(cli->fd, buffer, 1024);
     if (n < 0)
         printf("Erreur reading from socket");
     printf("Client: %s\n", buffer);
-    bzero(buffer, 256);
-    fgets(buffer, 255, stdin);
+    bzero(buffer, 1024);
+    fgets(buffer, 1024, stdin);
     n = write(cli->fd, buffer, strlen(buffer));
     if (n < 0)
         printf("Erreur writing socket");
