@@ -24,10 +24,5 @@ void client_run(client_t *cli)
         n = write(cli->tcp_sock, buffer, strlen(buffer));
         if (n < 0)
            printf("error writing");
-        bzero(buffer, 1024);
-        n = read(cli->tcp_sock, buffer, 1024);
-        if (n < 0)
-            printf("error reading");
-        printf("server: %s\n", buffer);
     }
 }

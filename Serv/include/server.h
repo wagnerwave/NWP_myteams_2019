@@ -53,19 +53,19 @@ typedef struct comment_s {
 typedef struct user_s {
     char *username;
     uuid_t user_id;
+    bool connected;
 } user_t;
 
 typedef struct client_s {
     fd_set *group_fd;
     user_t user;
     int fd;
-    bool connected;
 } client_t;
 
 typedef struct cmd_s {
     char *name;
-    void (*libfunc)(client_t *cli, char **txt);
-    void (*myfunc)(client_t *cli, char **txt);
+    void (*libfunc)(client_t **cli, int nb, char **txt);
+    void (*myfunc)(client_t **cli, int nb, char **txt);
     char *desc;
 } cmd_t;
 
@@ -77,7 +77,7 @@ char *get_next_line(int fd);
 char **strtowordarray(char *str, char delim);
 void display_help(char *nameprog);
 
-void interpert_client_input(client_t *cli, char *input);
+void interpert_client_input(client_t **cli, int nb, char *input);
 
 /****   INIT    ****/
 
@@ -91,7 +91,10 @@ void teams_server(server_t *svr);
 
 /****   CMD     ****/
 
-void help(client_t *cli, char **txt);
+void help(client_t **cli, int nb, char **txt);
+
+void login(client_t **cli, int nb, char **txt);
+void logout(client_t **cli, int nb, char **txt);
 
 /****   ERROR   ****/
 

@@ -13,21 +13,17 @@
 #include <stdio.h>
 #include <string.h>
 
-static void client_management(client_t *cli)
+static void client_management(client_t **cli, int nb)
 {
-    int n = 0;
-    char *buffer = malloc(sizeof(char) * 1024);
+    char *input = NULL;
 
-    bzero(buffer, 1024);
-    n = read(cli->fd, buffer, 1024);
-    if (n < 0)
-        printf("Erreur reading from socket");
-    printf("Client: %s\n", buffer);
-    bzero(buffer, 1024);
-    fgets(buffer, 1024, stdin);
-    n = write(cli->fd, buffer, strlen(buffer));
-    if (n < 0)
-        printf("Erreur writing socket");
+    input = get_next_line(cli[nb]->fd);
+    if (input == NULL) {
+        close(cli[nb]->fd);
+        FD_CLR(cli[nb]->fd, cli[nb]->group_fd);
+        return;
+    }
+    interpert_client_input(cli, nb ,input);
 }
 
 static void connection_client(int sock, fd_set *activ_group_fd) {
@@ -41,11 +37,11 @@ static void connection_client(int sock, fd_set *activ_group_fd) {
     FD_SET(new_tcp_socket, activ_group_fd);
 }
 
-static void in_the_socket(server_t *srv, client_t *cli) {
-    if (cli->fd == srv->tcp_sock) {
-        connection_client(srv->tcp_sock, cli->group_fd);
+static void in_the_socket(server_t *srv, client_t **cli, int nb) {
+    if (cli[nb]->fd == srv->tcp_sock) {
+        connection_client(srv->tcp_sock, cli[nb]->group_fd);
     } else {
-        client_management(cli);
+        client_management(cli, nb);
     }
 }
 
@@ -66,7 +62,7 @@ void teams_server(server_t *srv) {
         for (int i = 0; i < FD_SETSIZE; i++) {
             init_client(cli[i], i, &activ_group_fd);
             if (FD_ISSET(i, &read_group_fd))
-                in_the_socket(srv, cli[i]);
+                in_the_socket(srv, cli, i);
         }
     }
 }

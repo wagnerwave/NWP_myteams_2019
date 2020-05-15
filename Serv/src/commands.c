@@ -11,8 +11,8 @@
 
 const cmd_t cmd[] = {
     {"/help", NULL, &help, "show help"},
-    {"/login", NULL, NULL, "[\"username\"]: set the username used by client"},
-    {"/logout", NULL, NULL, ": disconnect the client from the server"},
+    {"/login", NULL, &login, "[\"username\"]: set the username used by client"},
+    {"/logout", NULL, &logout, ": disconnect the client from the server"},
     {"/users", NULL, NULL, ": get the list of all users that exist on the domain"},
     {"/user", NULL, NULL, "[\"user_uuid\"] : get information about a user"},
     {"/send", NULL, NULL, "[\"user\"] [\"message_body\"] : send a message to a user"},
