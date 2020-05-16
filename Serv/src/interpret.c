@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "server.h"
 
-static void interract_cmd_to_client(cmd_t *cmd, client_t **cli, char **txt,
+static void interract_cmd_to_client(const cmd_t *cmd, client_t **cli, char **txt,
 int nb)
 {
     if (cmd->myfunc != NULL)
