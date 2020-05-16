@@ -23,11 +23,10 @@ static void connect_client(client_t *cli)
 
 static void create_client_user(client_t *cli, char *username)
 {
-    size_t i = 0;
-    //int server_event_user_created(char const *user_id, char const *user_name);
     cli->user.username = strdup(username);
     cli->user.connected = true;
-    //uuid_generate(cli->user.user_id);
+    uuid_generate(cli->user.user_id);
+    //int server_event_user_created(char const *user_id, username);
 }
 
 void login(client_t **cli, int nb, char **txt)
@@ -40,7 +39,6 @@ void login(client_t **cli, int nb, char **txt)
         if (cli[i]->user.connected == true) {
             if (strcmp(cli[i]->user.username, username) == 0) {
                 connect_client(cli[i]);
-                free(username);
                 return;
             }
         }

@@ -64,7 +64,6 @@ typedef struct client_s {
 
 typedef struct cmd_s {
     char *name;
-    void (*libfunc)(client_t **cli, int nb, char **txt);
     void (*myfunc)(client_t **cli, int nb, char **txt);
     char *desc;
 } cmd_t;
@@ -92,6 +91,7 @@ void teams_server(server_t *svr);
 /****   CMD     ****/
 
 void help(client_t **cli, int nb, char **txt);
+void users(client_t **cli, int nb, char **txt);
 
 void login(client_t **cli, int nb, char **txt);
 void logout(client_t **cli, int nb, char **txt);

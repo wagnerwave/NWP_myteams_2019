@@ -16,8 +16,6 @@ int nb)
 {
     if (cmd->myfunc != NULL)
         cmd->myfunc(cli, nb, txt);
-    if (cmd->libfunc != NULL)
-        cmd->libfunc(cli, nb, txt);
 }
 
 static void free_input(char **content)

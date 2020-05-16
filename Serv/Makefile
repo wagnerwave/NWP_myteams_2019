@@ -23,7 +23,7 @@ SRC		=	$(D_SRC)main.c	\
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS	+=	-W -Wall -Wextra -I$(D_INC)
+CFLAGS	+=	-W -Wall -Wextra -I$(D_INC) -luuid
 
 all		:	$(NAME)
 
