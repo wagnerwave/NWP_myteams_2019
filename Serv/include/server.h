@@ -64,7 +64,7 @@ typedef struct client_s {
 
 typedef struct cmd_s {
     char *name;
-    void (*myfunc)(client_t **cli, int nb, char **txt);
+    void (*func)(client_t **cli, int nb, char **txt);
     char *desc;
 } cmd_t;
 

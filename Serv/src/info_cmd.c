@@ -13,7 +13,7 @@ void help(client_t **cli, int nb, char **txt)
 {
     (void)txt;
     for (size_t i = 0; cmd[i].name != NULL; i++)
-        dprintf(cli[nb]->fd,"%s %s\n", cmd[i].name, cmd[i].desc);
+        dprintf(cli[nb]->fd, "%s %s\n", cmd[i].name, cmd[i].desc);
 }
 
 void users(client_t **cli, int nb, char **txt)

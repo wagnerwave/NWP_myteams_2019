@@ -17,7 +17,7 @@ static void connect_client(client_t *cli)
         return;
     } else {
         cli->user.connected = true;
-        //server_event_user_loaded(char const *user_id, cli->user.username);
+        //server_event_user_loaded(cli->user, cli->user.username);
     }
 }
 
@@ -31,8 +31,10 @@ static void create_client_user(client_t *cli, char *username)
 
 void login(client_t **cli, int nb, char **txt)
 {
-    char *username = txt[1];
-
+    char *username = NULL;
+    if (!txt[1])
+        return;
+    username = txt[1];
     if (strlen(username) > 32)
         return;
     for (int i = 0; i < FD_SETSIZE; i++) {
