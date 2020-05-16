@@ -14,8 +14,8 @@
 static void interract_cmd_to_client(const cmd_t *cmd, client_t **cli, char **txt,
 int nb)
 {
-    if (cmd->myfunc != NULL)
-        cmd->myfunc(cli, nb, txt);
+    if (cmd->func != NULL)
+        cmd->func(cli, nb, txt);
 }
 
 static void free_input(char **content)
