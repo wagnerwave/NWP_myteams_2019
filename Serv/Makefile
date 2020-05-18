@@ -7,6 +7,7 @@
 
 D_SRC	=	./src/
 D_INC	=	./include/
+D_LIB	=	./../libs/myteams/
 
 NAME	=	../myteams_server
 
@@ -19,16 +20,18 @@ SRC		=	$(D_SRC)main.c	\
 			$(D_SRC)commands.c \
 			$(D_SRC)info_cmd.c \
 			$(D_SRC)connexion_cmd.c \
+			$(D_SRC)utils_uuid.c \
 			$(D_SRC)server.c
 
 OBJ		=	$(SRC:.c=.o)
 
-CFLAGS	+=	-W -Wall -Wextra -I$(D_INC) -luuid
+CFLAGS	+=	-W -Wall -Wextra -I$(D_INC) -I$(D_LIB)
+LDFLAGS	+=	-L$(D_LIB) -lmyteams -luuid
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
-			gcc -o $(NAME) $(OBJ) $(CFLAGS)
+			gcc -o $(NAME) $(OBJ) $(CFLAGS) $(LDFLAGS)
 
 clean	:
 			rm -f $(OBJ)

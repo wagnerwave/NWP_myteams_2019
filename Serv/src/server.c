@@ -8,10 +8,9 @@
 #include <sys/select.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "server.h"
-
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
+#include "server.h"
 
 static void client_management(client_t **cli, int nb)
 {

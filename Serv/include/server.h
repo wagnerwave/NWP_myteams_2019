@@ -78,6 +78,8 @@ void display_help(char *nameprog);
 
 void interpert_client_input(client_t **cli, int nb, char *input);
 
+char *uuid_to_str(uuid_t out);
+
 /****   INIT    ****/
 
 void init_client(client_t *cli, int sock, fd_set *acv_grpfd);

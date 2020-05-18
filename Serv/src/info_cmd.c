@@ -21,6 +21,6 @@ void users(client_t **cli, int nb, char **txt)
     (void)txt;
     for (size_t i = 0; cli[i] != NULL; i++) {
         if (cli[i]->user.username != NULL)
-            dprintf(cli[nb]->fd, "%s\n", cli[i]->user.username);
+            dprintf(cli[nb]->fd, "Users [%s:%s:%d]\n", uuid_to_str(cli[i]->user.user_id), cli[i]->user.username, cli[i]->user.connected);
     }
 }

@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <uuid/uuid.h>
 
 typedef struct client_s {
     struct sockaddr_in sin;
@@ -25,6 +26,8 @@ void client_run(client_t *cli);
 /****   TOOLS   ****/
 
 char *get_next_line(int fd);
+
+char *uuid_to_str(uuid_t out);
 
 /****   INIT    ****/
 
