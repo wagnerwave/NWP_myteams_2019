@@ -63,9 +63,9 @@ typedef struct client_s {
 } client_t;
 
 typedef struct cmd_s {
-    char *name;
+    const char *name;
     void (*func)(client_t **cli, int nb, char **txt);
-    char *desc;
+    const char *desc;
 } cmd_t;
 
 extern const cmd_t cmd[];
