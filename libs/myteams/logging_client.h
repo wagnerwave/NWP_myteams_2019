@@ -26,15 +26,18 @@
 	\param user_id a character pointer corresponding to the universally unique
 	id assigned to the currently logged in user
 	\param user_name a character pointer corresponding to the user name.
-	\return On success, 1 is returned. On error, -1 is returned and errno is set appropriately
+	\return On success, 1 is returned. On error, -1 is returned and errno is
+	set appropriately
 */
 int client_event_loggedin(char const *u_id, const char *u_name);
 
 //! Handler called when a user disconnect from the server (you or someone else)
 /*!
-	\param user_id a character pointer corresponding to the universally unique id assigned to the currently logged out user
+	\param user_id a character pointer corresponding to the universally unique
+	id assigned to the currently logged out user
 	\param user_name a character pointer corresponding to the user name.
-	\return On success, 1 is returned. On error, -1 is returned and errno is set appropriately
+	\return On success, 1 is returned. On error, -1 is returned and errno is
+	set appropriately
 */
 int client_event_loggedout(char const *u_id, const char *u_name);
 
@@ -93,12 +96,17 @@ char const *c_description);
 
 //! Handler called when a new thread is created
 /*!
-	\param thread_id a character pointer corresponding to the universally unique id assigned to the thread in the team.
-	\param user_id a character pointer corresponding to the universally unique id assigned to the user who created the thread.
-	\param thread_timestamp an unsigned integer corresponding to the timestamp of the thread's creation.
-	\param thread_title a character pointer corresponding to the thread title.
+	\param thread_id a character pointer corresponding to the universally
+	unique id assigned to the thread in the team.
+	\param user_id a character pointer corresponding to the universally
+	unique id assigned to the user who created the thread.
+	\param thread_timestamp an unsigned integer corresponding to the
+	timestamp of the thread's creation.
+	\param thread_title a character pointer corresponding to the thread
+	title.
 	\param thread_body a character pointer corresponding to the thread body.
-	\return On success, 1 is returned. On error, -1 is returned and errno is set appropriately
+	\return On success, 1 is returned. On error, -1 is returned and
+	errno is set appropriately
 */
 int client_event_thread_created(char const *thread_id, char const *user_id,
 time_t thread_timestamp, char const *thread_title, char const *thread_body);
@@ -124,7 +132,8 @@ int user_status);
 	\param team_id a character pointer corresponding to the universally
 	unique id assigned to the team.
 	\param team_name a character pointer corresponding to the team's name.
-	\param team_description a character pointer corresponding to the team's description.
+	\param team_description a character pointer corresponding to the team's
+	description.
 	\return On success, 1 is returned. On error, -1 is returned and
 	errno is set appropriately
 */
@@ -170,7 +179,8 @@ time_t thread_timestamp, char const *thread_title, char const *thread_body);
 	unique id assigned to the thread in the channel.
 	\param user_id a character pointer corresponding to the universally
 	unique id assigned to the user who created the thread.
-	\param reply_timestamp an unsigned integer corresponding to the timestamp of the reply.
+	\param reply_timestamp an unsigned integer corresponding to the timestamp
+	of the reply.
 	\param reply_body a character pointer corresponding to the reply.
 	\return On success, 1 is returned. On error, -1 is returned and errno
 	is set appropriately

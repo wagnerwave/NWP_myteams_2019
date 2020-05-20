@@ -32,16 +32,22 @@
 	\return On success, 1 is returned. On error, -1 is returned and errno
 	is set appropriately
 */
-int server_event_team_created(char const *t_id, char const *t_name, char const *u_id);
+int server_event_team_created(char const *t_id, char const *t_name,
+char const *u_id);
 
 //! Handler called when a channel is created
 /*!
-	\param team_id a character pointer corresponding to the universally unique identifier corresponding to the team hosting the channel.
-	\param channel_id a character pointer corresponding to the universally unique identifier corresponding to the newly created channel.
-	\param channel_name a character pointer corresponding to the name of the newly created channel.
-	\return On success, 1 is returned. On error, -1 is returned and errno is set appropriately
+	\param team_id a character pointer corresponding to the universally unique
+	identifier corresponding to the team hosting the channel.
+	\param channel_id a character pointer corresponding to the universally
+	unique identifier corresponding to the newly created channel.
+	\param channel_name a character pointer corresponding to the name of the
+	newly created channel.
+	\return On success, 1 is returned. On error, -1 is returned and errno is
+	set appropriately
 */
-int server_event_channel_created(char const *t_id, char const *c_id, char const *c_name);
+int server_event_channel_created(char const *t_id, char const *c_id,
+char const *c_name);
 
 //! Handler called when a thread is created
 /*!
@@ -55,8 +61,8 @@ int server_event_channel_created(char const *t_id, char const *c_id, char const 
 	\return On success, 1 is returned. On error, -1 is returned and errno
 	is set appropriately
 */
-int server_event_thread_created(char const *c_id, char const *th_id, char const *u_id,
-char const *m);
+int server_event_thread_created(char const *c_id, char const *th_id,
+char const *u_id, char const *m);
 
 //! Handler called when a message is post in a thread
 /*!
@@ -143,8 +149,7 @@ int server_event_user_logged_out(char const *u_id);
 	\return On success, 1 is returned. On error, -1 is returned and
 	errno is set appropriately
 */
-int server_event_private_message_sended(char const *s_id, char const *r_id, char const *m);
-
-
+int server_event_private_message_sended(char const *s_id, char const *r_id,
+char const *m);
 
 #endif /* __LOGGING_SERVER_H__ */
