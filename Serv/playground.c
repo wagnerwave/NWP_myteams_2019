@@ -27,21 +27,27 @@ typedef struct channel_s {
 } channel_t;
 
 */
+typedef struct channel_s {
+    char str[MAX_NAME_LENGTH];
+    SLIST_ENTRY(channel_s) next;
+} channel_t;
+
 typedef struct team_s {
     int id;
     SLIST_ENTRY(team_s) next;
+    SLIST_ENTRY(channel_s) channels;
 } team_t;
-
 
 
 int main(int ac, char **av)
 {
     SLIST_HEAD(, teams_t) head;
+//    SLIST_HEAD(, channel_t) c_head;
     team_t *b = NULL;
+    channel_t *c =NULL;
     SLIST_INIT(&head);
 
-    for (int a = 0; a <= 20 ; a++)
-    {
+    for (int a = 0; a <= 20 ; a++) {
         b = malloc(sizeof(team_t));
         if (a == 3) {
             b->id = 42;
@@ -49,10 +55,22 @@ int main(int ac, char **av)
             continue;
         }
         b->id = a;
-        SLIST_INSERT_HEAD(&head, b, next);
+
+    //     for (int a = 0; a <= 5; a++) {
+  //          c = malloc(sizeof(channel_t));
+      //      c->str =  strdup(strcat("tutu", itoa(a));
+//            SLIST_INSERT_HEAD(&c_head , c, next);
+    //     }
+         SLIST_INSERT_HEAD(&head, b, next);
     }
+
+
     SLIST_FOREACH(b, &head, next) {
         printf("Team #%d\n", b->id);
+
+        SLIST_FOREACH(c, &c_head, next) {
+            printf("\tstr ==> %s", b->channels->str)
+        }
     }
     return (88);
 }
