@@ -13,8 +13,29 @@
 #include <stdio.h>
 #include "client.h"
 
-static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
-{
+#define BEGIN_USERID 16
+#define END_USERID 52
+
+static void parsing_server_data(char *msg) {
+    int y = 0;
+    char user_id[38];
+    char user_name[30];
+    if (strncmp(msg, "Client connect [", BEGIN_USERID - 1) == 0) {
+        for (int i = BEGIN_USERID; i != END_USERID; i++) {
+            user_id[i - BEGIN_USERID] = msg[i];
+        }
+        user_id[END_USERID - BEGIN_USERID] = '\0';
+        while (msg[y + 53] != ']') {
+            if (y >= strlen(msg))
+                break;
+            user_name[y] = msg[y + 53];
+            y++;
+        }
+        user_name[y] = '\0';
+    }
+}
+
+static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock) {
     int result = 0;
     char *input = NULL;
     char msg[1024];
@@ -22,8 +43,12 @@ static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
     if (fd == tcp_sock) {
         result = read(tcp_sock, msg, 1024);
         msg[result] = '\0';
+        if (strlen(msg) == 0) {
+            printf("Server close\n");
+            exit(0);
+        }
+        parsing_server_data(msg);
         printf("CLIENT GET : %s\n", msg);
-        // interpretation de la reponse du serveur
     } else if (fd == 0) {
         input = get_next_line(0);
         printf("i enter : %s\n", input);
@@ -42,7 +67,7 @@ void client_run(client_t *cli) {
     FD_SET(0, &clientfd);
     while (1) {
         readfd = clientfd;
-        if (select(FD_SETSIZE, &readfd ,NULL, NULL, NULL) < 0)
+        if (select(FD_SETSIZE, &readfd, NULL, NULL, NULL) < 0)
             exit(84);
         for (int fd = 0; fd < FD_SETSIZE; fd++) {
             if (FD_ISSET(fd, &readfd))
