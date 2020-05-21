@@ -2,85 +2,64 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/queue.h>
-#define MAX_NAME_LENGTH 32
-#define MAX_DESCRIPTION_LENGTH 255
+#include <stdlib.h>
 
-/*typedef struct comment_s {
-    char body[MAX_BODY_LENGTH];
-} comment_t;
+/****   STRUCTURE   ****/
 
-typedef struct thread_s {
-    char *title;
-    char *msg;
-    uuid_t id;
-    SLIST_ENTRY(struct comment_s) comments_list;
-} thread_t ;
-
-typedef struct channel_s {
-    char  name[MAX_NAME_LENGTH];
-    char desc[MAX_DESCRIPTION_LENGTH];
-    uuid_t id;
-    SLIST_ENTRY(struct thread_s) threads_list;
-} channel_t;
-
-*/
-typedef struct channel_s {
-    char str[MAX_NAME_LENGTH];
+typedef struct channel_t {
+    int id;
     SLIST_ENTRY(channel_s) next;
 } channel_t;
 
-typedef struct team_s {
+typedef struct team_t {
     int id;
+    SLIST_HEAD(channel_head, channel_t) channels;
     SLIST_ENTRY(team_s) next;
-    SLIST_ENTRY(channel_s) channels;
 } team_t;
 
+/****   FUNCTION    ****/
+
+static void init_teams(team_t *teams, int id)
+{
+    SLIST_INIT(&(teams->channels));
+    teams->id = id;
+}
+
+static void add_new_channel(team_t *teams, int id)
+{
+    channel_t *new = calloc(1, sizeof(channel_t));
+    new->id = id;
+    SLIST_INSERT_HEAD(&(teams->channels), new, next);
+}
+
+/*static void free_channel(team_t *head)
+{
+    team_t *team;
+    while (!SLIST_EMPTY(head)) {
+        team = SLIST_FIRST(head);
+        channel_t *chan;
+        while(!SLIST_EMPTY(&(team->channel))) {
+            chan = SLIST_FIRST(&(team->channel));
+            free(chan);
+            SLIST_REMOVE(&(team->channel), chan, channel);
+        }
+        free(team);
+    }
+}*/
+
+/****   MAIN    ****/
 
 int main(int ac, char **av)
 {
-    SLIST_HEAD(, teams_t) head;
-//    SLIST_HEAD(, channel_t) c_head;
-    team_t *b = NULL;
-    channel_t *c =NULL;
-    SLIST_INIT(&head);
+    SLIST_HEAD(team_s, team_t) teams = SLIST_HEAD_INITIALIZER(teams);
+    static team_t team_build;
 
-    for (int a = 0; a <= 20 ; a++) {
-        b = malloc(sizeof(team_t));
-        if (a == 3) {
-            b->id = 42;
-            SLIST_INSERT_HEAD(&head, b, next);
-            continue;
-        }
-        b->id = a;
+    init_teams(&team_build, 40);
 
-    //     for (int a = 0; a <= 5; a++) {
-  //          c = malloc(sizeof(channel_t));
-      //      c->str =  strdup(strcat("tutu", itoa(a));
-//            SLIST_INSERT_HEAD(&c_head , c, next);
-    //     }
-         SLIST_INSERT_HEAD(&head, b, next);
+    for (int i = 0; i < 10; i++) {
+        add_new_channel(&team_build, rand());
     }
-
-
-    SLIST_FOREACH(b, &head, next) {
-        printf("Team #%d\n", b->id);
-
-        SLIST_FOREACH(c, &c_head, next) {
-            printf("\tstr ==> %s", b->channels->str)
-        }
-    }
-    return (88);
+    return 0;
 }
-
-
-
-
-
-
-
-
-
-
