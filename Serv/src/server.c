@@ -25,7 +25,8 @@ static void client_management(client_t **cli, int nb)
     interpert_client_input(cli, nb ,input);
 }
 
-static void connection_client(int sock, fd_set *activ_group_fd) {
+static void connection_client(int sock, fd_set *activ_group_fd)
+{
     struct sockaddr_in client;
     socklen_t addr_size = sizeof(client);
     int new_tcp_socket = 0;
@@ -36,7 +37,8 @@ static void connection_client(int sock, fd_set *activ_group_fd) {
     FD_SET(new_tcp_socket, activ_group_fd);
 }
 
-static void in_the_socket(server_t *srv, client_t **cli, int nb) {
+static void in_the_socket(server_t *srv, client_t **cli, int nb)
+{
     if (cli[nb]->fd == srv->tcp_sock) {
         connection_client(srv->tcp_sock, cli[nb]->group_fd);
     } else {

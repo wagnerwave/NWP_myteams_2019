@@ -16,14 +16,15 @@
 #define BEGIN_USERID 16
 #define END_USERID 52
 
-static void parsing_server_data(char *msg) {
+static void parsing_server_data(char *msg)
+{
     int y = 0;
     char user_id[38];
     char user_name[30];
+
     if (strncmp(msg, "Client connect [", BEGIN_USERID - 1) == 0) {
-        for (int i = BEGIN_USERID; i != END_USERID; i++) {
+        for (int i = BEGIN_USERID; i != END_USERID; i++)
             user_id[i - BEGIN_USERID] = msg[i];
-        }
         user_id[END_USERID - BEGIN_USERID] = '\0';
         while (msg[y + 53] != ']') {
             if (y >= strlen(msg))
@@ -33,9 +34,11 @@ static void parsing_server_data(char *msg) {
         }
         user_name[y] = '\0';
     }
+    client_event_loggedin(user_id, user_name);
 }
 
-static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock) {
+static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
+{
     int result = 0;
     char *input = NULL;
     char msg[1024];
@@ -48,17 +51,16 @@ static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock) {
             exit(0);
         }
         parsing_server_data(msg);
-        printf("CLIENT GET : %s\n", msg);
     } else if (fd == 0) {
         input = get_next_line(0);
-        printf("i enter : %s\n", input);
         if (input == NULL)
             return;
         dprintf(tcp_sock, "%s\n", input);
     }
 }
 
-void client_run(client_t *cli) {
+void client_run(client_t *cli)
+{
     fd_set readfd;
     fd_set clientfd;
 
