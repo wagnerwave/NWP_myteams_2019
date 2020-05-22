@@ -22,7 +22,7 @@ static void init_teams(team_t *teams, int id)
 {
     teams->id = id;
     teams->channel = NULL;
-    teams->next = NULL;struct channel_s *next;
+    teams->next = NULL;
 }
 
 static team_t *create_teams(int id)
@@ -61,7 +61,9 @@ static team_t **get_team_by_id(team_t **teams, int id)
 {
     team_t *tmp = *teams;
 
-    while (tmp->next != NULL && tmp->id != id) {
+    while (tmp->next != NULL) {
+        if (tmp->id == id)
+            return &tmp->id;
         tmp = tmp->next;
     }
     return &tmp;
@@ -86,7 +88,7 @@ static void add_new_channel(team_t **teams, int id)
     channel_t *chan = (*teams)->channel;
 
     if (chan == NULL) {
-        (*teams)->channel = create_channel(id);
+        (*teams)->channel = new_chan;
         return;
     }
     while (chan->next != NULL)
@@ -104,6 +106,7 @@ static void display_all_channel_by_teams(team_t **teams)
         tmp = tmp->next;
         i++;
     }
+     printf("ID = %d\n", tmp->id);
     printf("===================[%d]\n", i);
 }
 
@@ -149,10 +152,9 @@ int main(int ac, char **av)
     display_all_teams(&teams);
     for (int i = 0; i < 5; i++)
         add_new_channel(&teams, rand());
-    display_all_channel_by_teams(&teams);
     for (int i = 0; i < 5; i++);
-        add_new_channel(get_team_by_id(&teams, 2), rand());
+        add_new_channel(&teams->next, rand());
     display_all_channel_by_teams(&teams);
-    display_all_channel_by_teams(get_team_by_id(&teams, 2));
+    display_all_channel_by_teams(&teams->next);
     return 0;
 }
