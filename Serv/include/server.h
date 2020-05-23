@@ -80,6 +80,10 @@ void interpert_client_input(client_t **cli, int nb, char *input);
 
 char *uuid_to_str(uuid_t out);
 
+/****   DB_FUNC ****/
+
+void write_user_to_db(char const *uid, char const *username);
+
 /****   INIT    ****/
 
 void init_client(client_t *cli, int sock, fd_set *acv_grpfd);

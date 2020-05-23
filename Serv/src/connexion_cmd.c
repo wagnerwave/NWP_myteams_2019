@@ -33,6 +33,7 @@ static void create_client_user(client_t *cli, char *username)
     server_event_user_created(uuid_to_str(cli->user.user_id), username);
     dprintf(cli->fd, "Client connect [%s:%s]\n",
     uuid_to_str(cli->user.user_id), cli->user.username);
+    write_user_to_db(uuid_to_str(cli->user.user_id), cli->user.username);
 }
 
 void login(client_t **cli, int nb, char **txt)
