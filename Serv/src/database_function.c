@@ -10,47 +10,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "server.h"
 
 #define USER_DB "./user.db"
 #define MYTEAM_DB "./myteams.db"
-/*
-void load_user_file(char const *file)
-{
-    char *line_buf = NULL;
-    size_t line_buf_size = 0;
-    size_t line_size = 0;
-    FILE *fp = fopen(file, "r");
 
-    if (!fp)
-        exit(84);
-    line_size = getline(&line_buf, &line_buf_size, fp);
-    while (line_size >= 0) {
-        line_size = getline(&line_buf, &line_buf_size, fp);
-    }
-    fclose(fp);
-}
-
-bool file_exists(char const *file)
-{
-    struct stat buffer;
-    bool exist = stat(file, &buffer);
-    if (exist)
-        return true;
-    else
-        return false;
-}
-
-void check_databases()
-{
-    if (file_exists(USER_DB) == false)
-        create_file(USER_DB);
-    else
-        load_user_file(USER_DB);
-    if (file_exists(MYTEAM_DB) == false)
-        create_file(MYTEAM_DB);
-}
-*/
+#define ID 0
+#define NAME 1
 
 void write_user_to_db(char const *uid, char const *username)
 {
@@ -63,49 +30,44 @@ void write_user_to_db(char const *uid, char const *username)
     fclose(ptr);
 }
 
-static char *get_name_on_str_with_db(char *line)
+static void db_info_to_struct(user_t *tmp, char *line)
 {
-    size_t i = 0;
-    char *name = NULL;
+    char *token = NULL;
+    char *delim = ":\n";
 
-    while (line != ':')
-        line++;
-    for (i = 0; line[i] != '\n'; i++);
-    name = malloc(sizeof(char) * (i + 1));
-    if (name == NULL) {
-        printf("Error: malloc failed to get name on DB.\n");
-        exit(84);
-    }
-    for (size_t x = 0; line[x] != '\n'; x++)
-        name[x] = line[x];
-    return name;
+    token = strtok(line, delim);
+    if (token == NULL)
+        return;
+    uuid_parse(token, tmp->user_id);
+    token = strtok(NULL, delim);
+    if (token == NULL)
+        return;
+    tmp->username = strdup(token);
 }
 
-char *compare_username_with_db(char const *username)
+void compare_username_with_db(user_t *tmp, char const *username)
 {
     char *line_buf = NULL;
     size_t line_buf_size = 0;
     size_t line_size = 0;
     FILE *fp = fopen(USER_DB, "r");
-    char *name = NULL;
-    long x = 0;
 
     if (!fp)
         exit(84);
     line_size = getline(&line_buf, &line_buf_size, fp);
-    name = get_name_on_str_with_db(line_buf);
-    if (name == username)
-        return line_buf;
-    else
-        free(name);
-    while (line_size >= 0) {
-        line_size = getline(&line_buf, &line_buf_size, fp);
-        name = get_name_on_str_with_db(line_buf);
-        if (name == username)
-            return line_buf;
-        else
-            free(name);
+    db_info_to_struct(tmp, line_buf);
+    if (strcmp(tmp->username, username) == 0) {
+        fclose(fp);
+        return;
     }
+    while (line_size != -1) {
+        line_size = getline(&line_buf, &line_buf_size, fp);
+        db_info_to_struct(tmp, line_buf);
+        if (strcmp(tmp->username, username) == 0) {
+            fclose(fp);
+            return;
+        }
+    }
+    tmp->username = NULL;
     fclose(fp);
-    return NULL;
 }
