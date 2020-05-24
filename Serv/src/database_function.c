@@ -19,6 +19,13 @@
 #define ID 0
 #define NAME 1
 
+int file_exists()
+{
+    struct stat file_buffer;
+
+    return (stat(USER_DB, &file_buffer));
+}
+
 void write_user_to_db(char const *uid, char const *username)
 {
     FILE *ptr = fopen(USER_DB, "a");

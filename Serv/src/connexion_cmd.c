@@ -44,11 +44,14 @@ void login(client_t **cli, int nb, char **txt)
     username = txt[1];
     if (strlen(username) > 32)
         return;
-    compare_username_with_db(&tmp ,username);
-    if (tmp.username == NULL)
+    if (!file_exists()) {
+        compare_username_with_db(&tmp ,username);
+        if (tmp.username == NULL)
+            create_client_user(cli[nb], username);
+        else
+            connect_client(cli[nb], &tmp);
+    } else
         create_client_user(cli[nb], username);
-    else
-        connect_client(cli[nb], &tmp);
 }
 
 void logout(client_t **cli, int nb, char **txt)

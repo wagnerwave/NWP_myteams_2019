@@ -79,8 +79,10 @@ void display_help(char *nameprog);
 void interpert_client_input(client_t **cli, int nb, char *input);
 
 char *uuid_to_str(uuid_t out);
+
 /****   DB_FUNC ****/
 
+int file_exists();
 void write_user_to_db(char const *uid, char const *username);
 void compare_username_with_db(user_t *tmp, char const *username);
 

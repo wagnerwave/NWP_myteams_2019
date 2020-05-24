@@ -16,25 +16,30 @@
 #define BEGIN_USERID 16
 #define END_USERID 52
 
+
+static char *get_code_from_str(char *str)
+{
+    char *code = malloc(sizeof(char) * (3 + 1));
+    size_t i = 0;
+
+    if (code == NULL) {
+        printf("Error: Error failed malloc to get code.\n");
+        exit(84);
+    }
+    for (i = 0; i < 3; i++)
+        code[i] = str[i];
+    code[i] = '\0';
+    return code;
+}
+
 static void parsing_server_data(char *msg)
 {
-    int y = 0;
-    char user_id[38];
-    char user_name[30];
+    char *code = get_code_from_str(msg);
 
-    if (strncmp(msg, "Client connect [", BEGIN_USERID - 1) == 0) {
-        for (int i = BEGIN_USERID; i != END_USERID; i++)
-            user_id[i - BEGIN_USERID] = msg[i];
-        user_id[END_USERID - BEGIN_USERID] = '\0';
-        while (msg[y + 53] != ']') {
-            if (y >= strlen(msg))
-                break;
-            user_name[y] = msg[y + 53];
-            y++;
-        }
-        user_name[y] = '\0';
-    }
-    client_event_loggedin(user_id, user_name);
+    if (strcmp(code, "001") == 0)
+        return;
+    else if (strcmp(code, "002") == 0)
+        return;
 }
 
 static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
