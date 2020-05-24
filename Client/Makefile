@@ -16,6 +16,8 @@ SRC		=	$(D_SRC)main.c \
 			$(D_SRC)help.c \
 			$(D_SRC)utils_uuid.c \
 			$(D_SRC)init.c \
+			$(D_SRC)strtowordarray.c \
+			$(D_SRC)interpret_responce.c \
 			$(D_SRC)client.c
 
 OBJ		=	$(SRC:.c=.o)

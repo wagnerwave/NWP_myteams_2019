@@ -16,9 +16,6 @@
 #define USER_DB "./user.db"
 #define MYTEAM_DB "./myteams.db"
 
-#define ID 0
-#define NAME 1
-
 int file_exists()
 {
     struct stat file_buffer;

@@ -36,7 +36,7 @@ static void create_client_user(client_t *cli, char *username)
 
 void login(client_t **cli, int nb, char **txt)
 {
-    user_t tmp = {NULL, 0, false};
+    user_t tmp = {NULL, 0, 0};
     char *username = NULL;
 
     if (!txt[1])

@@ -22,6 +22,10 @@
 #define MAX_NAME_LENGTH 32
 #define SPACE 32
 
+#define USER_DB "./user.db"
+#define MYTEAM_DB "./myteams.db"
+
+
 typedef struct server_s {
     struct sockaddr_in sin;
     unsigned short port;

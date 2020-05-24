@@ -18,11 +18,3 @@ char *uuid_to_str(uuid_t out)
     uuid_unparse(out, str);
     return str;
 }
-
-uuid_t *str_to_uuid(const char *str)
-{
-    uuid_t out;
-
-    uuid_parse(str, out);
-    return out;
-}

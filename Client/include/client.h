@@ -26,8 +26,13 @@ void client_run(client_t *cli);
 /****   TOOLS   ****/
 
 char *get_next_line(int fd);
-
+char **strtowordarray(char *str, char delim);
 char *uuid_to_str(uuid_t out);
+
+/****   CODE FUNC   ****/
+
+void login_func(char *msg);
+void logout_func(char *msg);
 
 /****   INIT    ****/
 
