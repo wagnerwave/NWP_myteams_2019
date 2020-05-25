@@ -41,6 +41,7 @@ char *uuid_to_str(uuid_t out);
 
 void login_func(char *msg);
 void logout_func(char *msg);
+void receive_msg_func(char *msg);
 
 /****   INIT    ****/
 

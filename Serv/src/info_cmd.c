@@ -41,7 +41,7 @@ static void display_user_by_db(client_t **cli, int nb)
         username = strtok(NULL, delim);
         if (username == NULL)
             break;
-        dprintf(cli[nb]->fd, "username : %s | id : %s\n", username, uid);
+        dprintf(cli[nb]->fd, "[USER]%s\n", username);
     }
     fclose(fp);
 }

@@ -15,7 +15,7 @@ const cmd_t cmd[] = {
     {"/logout", &logout, ": disconnect the client from the server"},
     {"/users", &users, ": get the list of all users"},
     {"/user", NULL, "[\"user_uuid\"] : get information about a user"},
-    {"/send", NULL, "[user|message_body]: send a message to a user"},
+    {"/send", &send_func, "[user|message_body]: send a message to a user"},
     {"/messages", NULL, "[user]: list all messages exchange with an user"},
     {"/subscribe", NULL, "[team]: subscribe to the event of a team"},
     {"/subscribed", NULL, "[team]: list all users subscribed to a team"},

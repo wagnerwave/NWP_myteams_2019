@@ -108,6 +108,8 @@ void users(client_t **cli, int nb, char **txt);
 void login(client_t **cli, int nb, char **txt);
 void logout(client_t **cli, int nb, char **txt);
 
+void send_func(client_t **cli, int nb, char **txt);
+
 /****   ERROR   ****/
 
 void error_msg(char *msg);

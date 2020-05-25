@@ -40,6 +40,8 @@ static void parsing_server_data(char *msg)
         login_func(msg);
     else if (strcmp(code, "002") == 0)
         logout_func(msg);
+    else if (strcmp(code, "010") == 0)
+        receive_msg_func(msg);
     else
         printf("%s", msg);
 }
