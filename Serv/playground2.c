@@ -2,8 +2,13 @@
 #include <unistd.h>
 #include <sys/queue.h>
 #include <stdlib.h>
+#include <string.h>
 
-/****   STRUCTURE   ****/
+/* typedef struct channel_s {
+    int id;
+    char name[15];
+    struct channel_s *next;
+} channel_t; */
 
 typedef struct node_s {
     void *content;
@@ -16,6 +21,22 @@ typedef struct vector_s {
     node_t *end;
     size_t size;
 } vector_t;
+
+typedef struct channel_s {
+    int id;
+    char *name;
+    //vector_t *threads_list;
+} channel_t;
+
+typedef struct team_s {
+    int id;
+    char *name;
+    vector_t *channels_list;
+} team_t;
+
+/****   STRUCTURE   ****/
+
+
 
 /****   FUNCTION    ****/
 
@@ -145,21 +166,91 @@ void vector_pop_back(vector_t *vector)
     vector_pop_me(vector, vector->end);
 }
 
+team_t *new_team(char *name, int id)
+{
+    team_t *t = malloc(sizeof(team_t));
+  //  if (t->id = malloc(sizeof(int)))
+        t->id = id;
+    if (t->name = malloc(32))
+        t->name = strdup(name);
+    t->channels_list = vector_create();
+    return t;
+}
+
+channel_t *new_channel(char *name, int id)
+{
+    channel_t *c = malloc(sizeof(channel_t));
+    //if (c->id = malloc(sizeof(float)))
+        c->id = id;
+    if (c->name = malloc(32))
+        c->name = strdup(name);
+   // c->threads_list = vector_create();
+    return c;
+}
+
+char *team_get_name(team_t *t) 
+{
+    return strdup(t->name);
+}
+
+int team_get_id(team_t *t)
+{
+    return (t->id);
+}
+
+node_t *team_get_channels(team_t *t)
+{
+    return (t->channels_list->start);
+}
+//////////////////////////////////////
+////// CHANNELS FUNCS
+
+char *channel_get_name(channel_t *c)
+{
+    return strdup(c->name);
+}
+
+int channel_get_id(channel_t *c)
+{
+    return (c->id);
+}
+///////////////////////////////////////
 void main(void)
 {
     vector_t *list = vector_create();
-    vector_push_back(list, strdup("1"));
-    vector_push_back(list, strdup("2"));
-    vector_push_back(list, strdup("3"));
-    vector_push_back(list, strdup("4"));
-    vector_push_back(list, strdup("5"));
-    vector_push_back(list, strdup("6"));
     
-    for (node_t *i = list->start; i ; i = i->next)
-        printf("%s\n", (char*)i->content);
+    team_t *t = new_team("macron", 84);
+    channel_t *c = new_channel("elysée", 2077);
+    channel_t *c1 = new_channel("matignon", 49.3);
 
-    printf("\n\n");
-    
-    for (node_t *i = list->end; i; i = i->prev)
-        printf("%s\n", (char*)i->content);
+    team_t *t1 = new_team("josé bové", 66);
+    channel_t *d = new_channel("prolétariat", 01);
+    channel_t *d1 = new_channel("le bistrot", 51);
+
+    team_t *t2 = new_team("l'ami demeuré", 23);
+    channel_t *e = new_channel("neutralité", 01);
+    channel_t *e1 = new_channel("centrisme", 0);
+
+    vector_push_back(list, t);
+    vector_push_back(t->channels_list, c);
+    vector_push_back(t->channels_list, c1);
+
+    vector_push_back(list, t1);
+    vector_push_back(t1->channels_list, d);
+    vector_push_back(t1->channels_list, d1);
+
+    vector_push_back(list, t2);
+    vector_push_back(t2->channels_list, e);
+    vector_push_back(t2->channels_list, e1);
+
+    for (node_t *i = list->start; i; i = i->next) {
+        printf("\tteams:\n");
+        printf("\t>>>>>> name:\t%s\n", team_get_name(i->content));
+        printf("\t>>>>>> id:\t%d\n", team_get_id(i->content));
+        printf("\t\tchannels:\n");
+        for (node_t *j = team_get_channels(i->content); j; j = j->next) {
+            printf("\t\t>>>>>>>>> name : %s\n", channel_get_name(j->content));
+            printf("\t\t>>>>>>>>> id : %d\n", channel_get_id(j->content));
+        }
+    }
 }
