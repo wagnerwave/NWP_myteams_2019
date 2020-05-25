@@ -21,11 +21,16 @@ typedef struct vector_s {
     node_t *end;
     size_t size;
 } vector_t;
+////////////////////////////
+typedef struct thread_s {
+    int id;
+    char *title;
+} thread_t;
 
 typedef struct channel_s {
     int id;
     char *name;
-    //vector_t *threads_list;
+    vector_t *threads_list;
 } channel_t;
 
 typedef struct team_s {
@@ -169,8 +174,7 @@ void vector_pop_back(vector_t *vector)
 team_t *new_team(char *name, int id)
 {
     team_t *t = malloc(sizeof(team_t));
-  //  if (t->id = malloc(sizeof(int)))
-        t->id = id;
+    t->id = id;
     if (t->name = malloc(32))
         t->name = strdup(name);
     t->channels_list = vector_create();
@@ -180,12 +184,21 @@ team_t *new_team(char *name, int id)
 channel_t *new_channel(char *name, int id)
 {
     channel_t *c = malloc(sizeof(channel_t));
-    //if (c->id = malloc(sizeof(float)))
-        c->id = id;
-    if (c->name = malloc(32))
+    c->id = id;
+    if (c->name = malloc(strlen(strdup(name))))
         c->name = strdup(name);
-   // c->threads_list = vector_create();
+    c->threads_list = vector_create();
     return c;
+}
+
+thread_t *new_thread(char *title, int id)
+{
+    thread_t *thread = malloc(sizeof(channel_t));
+    thread->id = id;
+    if (thread->title = malloc(strlen(strdup(title))))
+        thread->title = strdup(title);
+    //thread->comments_list = vector_create();
+    return thread;
 }
 
 char *team_get_name(team_t *t) 
@@ -202,55 +215,113 @@ node_t *team_get_channels(team_t *t)
 {
     return (t->channels_list->start);
 }
+
+node_t *channel_get_threads(channel_t *chan)
+{
+    return (chan->threads_list->start);
+}
+
+void team_set_name(team_t *t, char *name)
+{
+    t->name = strdup(name);
+}
+
+void team_set_id(team_t *t, int id)
+{
+    t->id = id;
+}
 //////////////////////////////////////
 ////// CHANNELS FUNCS
 
-char *channel_get_name(channel_t *c)
+char *channel_get_name(channel_t *chan)
 {
-    return strdup(c->name);
+    return strdup(chan->name);
 }
 
-int channel_get_id(channel_t *c)
+void channel_set_name(channel_t *chan, char *name)
 {
-    return (c->id);
+    chan->name = strdup(name);
+}
+
+void channel_set_id(channel_t *chan, int id)
+{
+    chan->id = id;
+}
+
+int channel_get_id(channel_t *chan)
+{
+    return (chan->id);
+}
+///////////////////////////////////////
+//////// THREADS FUNCS
+
+char *thread_get_title(thread_t *thread) 
+{
+    return (thread->title);
+}
+
+int thread_get_id(thread_t *thread)
+{
+    return (thread->id);
 }
 ///////////////////////////////////////
 void main(void)
 {
-    vector_t *list = vector_create();
+    vector_t *server = vector_create();
     
-    team_t *t = new_team("macron", 84);
-    channel_t *c = new_channel("elysée", 2077);
-    channel_t *c1 = new_channel("matignon", 49.3);
+    team_t *t = new_team("macron", 100);
+    channel_t *c = new_channel("#elysée", 10000);
+    channel_t *c1 = new_channel("#matignon", 10001);
+    thread_t *lundi = new_thread("OUUUIIIII AVEC MES AMIS", 1000001);
+    thread_t *monday = new_thread("LE MECHANT CORONA", 1000002);
 
-    team_t *t1 = new_team("josé bové", 66);
-    channel_t *d = new_channel("prolétariat", 01);
-    channel_t *d1 = new_channel("le bistrot", 51);
+    team_t *t1 = new_team("josé bové", 200);
+    channel_t *d = new_channel("#prolétariat", 20001);
+    channel_t *d1 = new_channel("#le_bistrot", 20002);
+    thread_t *mardi = new_thread("C'EST LA LUTTE FINALE!!", 2000002);
+    thread_t *tuesday = new_thread("C'EST QUI CELLE LA ?!", 2000009);
 
-    team_t *t2 = new_team("l'ami demeuré", 23);
-    channel_t *e = new_channel("neutralité", 01);
-    channel_t *e1 = new_channel("centrisme", 0);
+    team_t *t2 = new_team("l'ami demeuré", 300);
+    channel_t *e = new_channel("#neutralité ", 30003);
+    channel_t *e1 = new_channel("#centrisme",  30004);
+    thread_t *mercredi = new_thread("LES DEMEURES VAINCRONT",  3000005);
+    thread_t *wednesday = new_thread("RESTEZ CHEZ VOUS",  3000008);
 
-    vector_push_back(list, t);
+    vector_push_back(server, t);
     vector_push_back(t->channels_list, c);
     vector_push_back(t->channels_list, c1);
+    vector_push_back(c->threads_list, lundi);
+    vector_push_back(c->threads_list, monday);
+    vector_push_back(c1->threads_list, monday);
 
-    vector_push_back(list, t1);
+    vector_push_back(server, t1);
     vector_push_back(t1->channels_list, d);
     vector_push_back(t1->channels_list, d1);
+    vector_push_back(d->threads_list, mardi);
+    vector_push_back(d1->threads_list, tuesday);
 
-    vector_push_back(list, t2);
+    vector_push_back(server, t2);
     vector_push_back(t2->channels_list, e);
     vector_push_back(t2->channels_list, e1);
+    vector_push_back(e->threads_list, mercredi);
+    vector_push_back(e1->threads_list, wednesday);
 
-    for (node_t *i = list->start; i; i = i->next) {
-        printf("\tteams:\n");
-        printf("\t>>>>>> name:\t%s\n", team_get_name(i->content));
-        printf("\t>>>>>> id:\t%d\n", team_get_id(i->content));
+    printf("teams:\n");
+    for (node_t *i = server->start; i; i = i->next) {
+        printf("\tname:\t%s\n", team_get_name(i->content));
+        printf("\tid:\t%d\n", team_get_id(i->content));
         printf("\t\tchannels:\n");
-        for (node_t *j = team_get_channels(i->content); j; j = j->next) {
-            printf("\t\t>>>>>>>>> name : %s\n", channel_get_name(j->content));
-            printf("\t\t>>>>>>>>> id : %d\n", channel_get_id(j->content));
+        
+        for (node_t *j = team_get_channels(i->content); j; j = j->next)
+        {
+            printf("\t\t\tchan name : %s\n", channel_get_name(j->content));
+            printf("\t\t\tid : %d\n", channel_get_id(j->content));
+            printf("\t\t\tthreads:\n");
+            for (node_t *k = channel_get_threads(j->content); k; k = k->next)
+            {   
+                printf("\t\t\t\tid : %d\n", thread_get_id(k->content));
+                printf("\t\t\t\tthread name : %s\n\n", thread_get_title(k->content));
+            }
         }
     }
 }
