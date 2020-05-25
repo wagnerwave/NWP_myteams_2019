@@ -41,7 +41,7 @@ static void parsing_server_data(char *msg)
     else if (strcmp(code, "002") == 0)
         logout_func(msg);
     else
-        printf("need implementation for the code [%s].\n", code);
+        printf("%s", msg);
 }
 
 static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)

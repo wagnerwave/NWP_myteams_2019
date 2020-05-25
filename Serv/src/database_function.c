@@ -13,9 +13,6 @@
 #include <string.h>
 #include "server.h"
 
-#define USER_DB "./user.db"
-#define MYTEAM_DB "./myteams.db"
-
 int file_exists()
 {
     struct stat file_buffer;

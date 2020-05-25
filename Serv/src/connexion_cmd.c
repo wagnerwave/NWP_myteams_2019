@@ -57,6 +57,10 @@ void login(client_t **cli, int nb, char **txt)
 void logout(client_t **cli, int nb, char **txt)
 {
     (void)txt;
+    if (!cli[nb]->user.connected) {
+        dprintf(cli[nb]->fd, "Error: please login.\n");
+        return;
+    }
     server_event_user_logged_out(uuid_to_str(cli[nb]->user.user_id));
     dprintf(cli[nb]->fd, "002 Client logged out [%s:%s]\n",
     uuid_to_str(cli[nb]->user.user_id), cli[nb]->user.username);

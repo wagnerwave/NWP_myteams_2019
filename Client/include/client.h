@@ -13,12 +13,20 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <uuid/uuid.h>
+#include <stdbool.h>
+
+typedef struct user_s {
+    char *username;
+    uuid_t user_id;
+    bool connected;
+} user_t;
 
 typedef struct client_s {
     struct sockaddr_in sin;
     int tcp_sock;
     const char *ip;
     unsigned short port;
+    user_t user_info;
 } client_t;
 
 void client_run(client_t *cli);
