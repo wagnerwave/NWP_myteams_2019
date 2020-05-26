@@ -18,7 +18,16 @@ SRC		=	$(D_SRC)main.c \
 			$(D_SRC)init.c \
 			$(D_SRC)strtowordarray.c \
 			$(D_SRC)interpret_responce.c \
-			$(D_SRC)client.c
+			$(D_SRC)client.c	\
+			$(D_SRC)interpret_responce_error.c \
+			$(D_SRC)interpret_responce_error_unknown.c \
+			$(D_SRC)interpret_responce_event.c \
+			$(D_SRC)interpret_responce_event2.c \
+			$(D_SRC)interpret_responce_print.c \
+			$(D_SRC)interpret_responce_print_channel.c \
+			$(D_SRC)interpret_responce_print_team.c \
+			$(D_SRC)interpret_responce_print_thread.c \
+			$(D_SRC)interpret_responce_print_user.c
 
 OBJ		=	$(SRC:.c=.o)
 

@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "client.h"
 
-static char *get_code_from_str(char *str)
+char *get_code_from_str(char *str)
 {
     char *code = malloc(sizeof(char) * (3 + 1));
     size_t i = 0;
@@ -28,21 +28,19 @@ static char *get_code_from_str(char *str)
     return code;
 }
 
-static void parsing_server_data(char *msg)
+void check_arg(char **arg, int number)
 {
-    char *code = get_code_from_str(msg);
+    int i = 0;
 
-    if (strcmp(code, "001") == 0)
-        login_func(msg);
-    else if (strcmp(code, "002") == 0)
-        logout_func(msg);
-    else if (strcmp(code, "010") == 0)
-        receive_msg_func(msg);
-    else
-        printf("%s", msg);
+    while (arg[i] != NULL){
+        i++;
+    }
+
+    if (i != number)
+        exit(0);
 }
 
-static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
+void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
 {
     int result = 0;
     char *input = NULL;
