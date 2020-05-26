@@ -9,8 +9,15 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include <stdio.h>
 #include "server.h"
+
+static volatile int running = 1;
+
+static void intHandler(int i) {
+    running = 0;
+}
 
 static void client_management(client_t **cli, int nb)
 {
@@ -56,7 +63,8 @@ void teams_server(server_t *srv) {
     default_init_client(cli);
     FD_ZERO(&activ_group_fd);
     FD_SET(srv->tcp_sock, &activ_group_fd);
-    while (1) {
+    signal(SIGINT, intHandler);
+    while (running) {
         read_group_fd = activ_group_fd;
         if (select(FD_SETSIZE, &read_group_fd, NULL, NULL, NULL) < 0)
             exit(84);
