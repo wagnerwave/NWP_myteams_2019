@@ -7,6 +7,8 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "server.h"
 
 void help(client_t **cli, int nb, char **txt)
@@ -25,7 +27,7 @@ static void display_user_by_db(client_t **cli, int nb)
 {
     char *line_buf = NULL;
     size_t line_buf_size = 0;
-    size_t line_size = 0;
+    int line_size = 0;
     char *uid = NULL;
     char *username = NULL;
     char *delim = ":\n";

@@ -83,8 +83,9 @@ void display_help(char *nameprog);
 void interpert_client_input(client_t **cli, int nb, char *input);
 
 char *uuid_to_str(uuid_t out);
-char *clean_str(char *str, char c);
-bool good_param(char *str);
+char *get_info_to_str(char *str);
+char *get_msg_to_array(char **txt);
+int count_tab(char **tab);
 
 /****   DB_FUNC ****/
 

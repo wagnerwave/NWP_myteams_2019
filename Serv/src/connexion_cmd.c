@@ -39,9 +39,10 @@ void login(client_t **cli, int nb, char **txt)
     user_t tmp = {NULL, 0, 0};
     char *username = NULL;
 
-    if (!txt[1]|| good_param(txt[1]) == false)
+    if (get_info_to_str(txt[1]) == NULL)
         return;
-    username = clean_str(txt[1], '"');
+    else
+        username = get_info_to_str(txt[1]);
     if (cli[nb]->user.connected == true &&
     strcmp(cli[nb]->user.username, username) != 0) {
         printf("Already connected\n");

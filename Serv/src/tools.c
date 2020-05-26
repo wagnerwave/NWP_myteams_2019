@@ -20,30 +20,11 @@ char *uuid_to_str(uuid_t out)
     return str;
 }
 
-char *clean_str(char *str, char c)
+int count_tab(char **tab)
 {
-    char *clean = NULL;
-    size_t cnt = 0;
+    int i = 0;
 
-    for (size_t i = 0; str[i]; i++)
-        if (str[i] != c)
-            cnt++;
-    clean = malloc(sizeof(char) * cnt);
-    if (clean == NULL)
-        exit(84);
-    for (size_t i = 0, a = 0; str[i]; i++)
-        if (str[i] != c) {
-            clean[a] = str[i];
-            a++;
-        }
-    clean[cnt] = '\0';
-    return clean;
-}
-
-bool good_param(char *str)
-{
-    if (str[0] == '"' && str[strlen(str) - 1] == '"')
-        return true;
-    else
-        return false;
+    while (tab[i])
+        i++;
+    return i;
 }
