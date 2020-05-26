@@ -11,16 +11,6 @@
 #include <stdint.h>
 #include <time.h>
 
-/*
-	Because of the norme, the line can't be over 80 characteres. so :
-	t = teams
-	th = thread
-	c = channel
-	u = user
-	m = message
-	s = sender
-	r = recever
-*/
 //! Handler called when a user connect to the server (you or someone else)
 int client_event_loggedin(char const *u_id, const char *u_name);
 

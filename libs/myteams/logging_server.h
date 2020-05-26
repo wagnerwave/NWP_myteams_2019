@@ -11,16 +11,6 @@
 #include <stdint.h>
 #include <time.h>
 
-/*
-	Because of the norme, the line can't be over 80 characteres. so :
-	t = teams
-	th = thread
-	c = channel
-	u = user
-	m = message
-	s = sender
-	r = recever
-*/
 //! Handler called when a new team is created
 int server_event_team_created(char const *t_id, char const *t_name,
 char const *u_id);
