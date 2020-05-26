@@ -39,9 +39,13 @@ void login(client_t **cli, int nb, char **txt)
     user_t tmp = {NULL, 0, 0};
     char *username = NULL;
 
-    if (!txt[1])
+    if (!txt[1] || cli[nb]->user.connected == true)
         return;
-    username = txt[1];
+    if (good_param(txt[1]) == false) {
+        printf("Bad parameter.\n");
+        return;
+    }
+    username = clean_str(txt[1], '"');
     if (strlen(username) > 32)
         return;
     if (!file_exists()) {

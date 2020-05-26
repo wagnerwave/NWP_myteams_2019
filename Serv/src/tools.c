@@ -41,7 +41,7 @@ char *clean_str(char *str, char c)
 
 bool good_param(char *str)
 {
-    if (str[0] == '"' && str[strlen(str)] == '"')
+    if (str[0] == '"' && str[strlen(str) - 1] == '"')
         return true;
     else
         return false;

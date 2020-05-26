@@ -13,10 +13,6 @@
 #include <stdio.h>
 #include "client.h"
 
-#define BEGIN_USERID 16
-#define END_USERID 52
-
-
 static char *get_code_from_str(char *str)
 {
     char *code = malloc(sizeof(char) * (3 + 1));

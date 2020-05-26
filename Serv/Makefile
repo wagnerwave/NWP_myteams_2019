@@ -20,7 +20,7 @@ SRC		=	$(D_SRC)main.c	\
 			$(D_SRC)commands.c \
 			$(D_SRC)info_cmd.c \
 			$(D_SRC)connexion_cmd.c \
-			$(D_SRC)utils_uuid.c \
+			$(D_SRC)tools.c \
 			$(D_SRC)database_function.c \
 			$(D_SRC)message_cmd.c \
 			$(D_SRC)server.c
