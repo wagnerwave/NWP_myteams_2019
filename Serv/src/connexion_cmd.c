@@ -39,15 +39,14 @@ void login(client_t **cli, int nb, char **txt)
     user_t tmp = {NULL, 0, 0};
     char *username = NULL;
 
-    if (!txt[1] || cli[nb]->user.connected == true)
+    if (!txt[1]|| good_param(txt[1]) == false)
         return;
-    if (good_param(txt[1]) == false) {
-        printf("Bad parameter.\n");
+    username = clean_str(txt[1], '"');
+    if (cli[nb]->user.connected == true &&
+    strcmp(cli[nb]->user.username, username) != 0) {
+        printf("Already connected\n");
         return;
     }
-    username = clean_str(txt[1], '"');
-    if (strlen(username) > 32)
-        return;
     if (!file_exists()) {
         compare_username_with_db(&tmp ,username);
         if (tmp.username == NULL)

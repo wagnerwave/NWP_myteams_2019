@@ -36,6 +36,7 @@ char *clean_str(char *str, char c)
             clean[a] = str[i];
             a++;
         }
+    clean[cnt] = '\0';
     return clean;
 }
 
