@@ -25,7 +25,6 @@
 #define USER_DB "./user.db"
 #define MYTEAM_DB "./myteams.db"
 
-
 typedef struct server_s {
     struct sockaddr_in sin;
     unsigned short port;
@@ -107,6 +106,7 @@ void teams_server(server_t *svr);
 
 void help(client_t **cli, int nb, char **txt);
 void users(client_t **cli, int nb, char **txt);
+void user(client_t **cli, int nb, char **txt);
 
 void login(client_t **cli, int nb, char **txt);
 void logout(client_t **cli, int nb, char **txt);

@@ -18,7 +18,8 @@ SRC		=	$(D_SRC)main.c	\
 			$(D_SRC)strtowordarray.c \
 			$(D_SRC)interpret.c \
 			$(D_SRC)commands.c \
-			$(D_SRC)info_cmd.c \
+			$(D_SRC)users_cmd.c \
+			$(D_SRC)user_cmd.c \
 			$(D_SRC)connexion_cmd.c \
 			$(D_SRC)tools.c \
 			$(D_SRC)string_management.c \
