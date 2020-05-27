@@ -28,7 +28,7 @@ char *get_code_from_str(char *str)
     return code;
 }
 
-void check_arg(char **arg, int number)
+int check_arg(char **arg, int number)
 {
     int i = 0;
 
@@ -36,7 +36,7 @@ void check_arg(char **arg, int number)
         i++;
     }
     if (i != number)
-        exit(0);
+        return (84);
 }
 
 void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
