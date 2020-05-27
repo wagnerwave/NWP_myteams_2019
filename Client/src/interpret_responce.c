@@ -36,13 +36,13 @@ void parsing_server_data(char *msg)
 void parsing_data_one_to_eight(char *msg, int code)
 {
     switch (code) {
-        case 1:
+        case 120:
             login_func(msg);
             break;
-        case 2:
+        case 210:
             logout_func(msg);
             break;
-        case 3:
+        case 101:
             receive_msg_func(msg);
             break;
         case 4:
