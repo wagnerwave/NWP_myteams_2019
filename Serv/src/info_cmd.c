@@ -18,9 +18,9 @@ void help(client_t **cli, int nb, char **txt)
         return;
     }
     (void)txt;
-    dprintf(cli[nb]->fd, "003 HELP, list of commands :\n");
+    dprintf(cli[nb]->fd, "$ 420 help display list of commands\n");
     for (size_t i = 0; cmd[i].name != NULL; i++)
-        dprintf(cli[nb]->fd, "%s %s\n", cmd[i].name, cmd[i].desc);
+        dprintf(cli[nb]->fd, "%s %s\n\0", cmd[i].name, cmd[i].desc);
 }
 
 static void send_users_info(client_t **cli, int usr, char *username, char *uid)
