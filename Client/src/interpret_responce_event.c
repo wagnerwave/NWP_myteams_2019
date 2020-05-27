@@ -38,5 +38,6 @@ void thread_msg_receive_func(char *msg)
     char **arg = arg_to_array(msg);
 
     check_arg(arg, 4);
-    client_event_thread_message_received((const char *)arg[0], (const char *)arg[1], (const char *)arg[2], (const char *)arg[3]);
+    client_event_thread_message_received((const char *)arg[0],
+    (const char *)arg[1], (const char *)arg[2], (const char *)arg[3]);
 }

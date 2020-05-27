@@ -35,7 +35,6 @@ void check_arg(char **arg, int number)
     while (arg[i] != NULL){
         i++;
     }
-
     if (i != number)
         exit(0);
 }

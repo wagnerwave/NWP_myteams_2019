@@ -19,6 +19,7 @@ static void connect_client(client_t *cli, user_t *tmp)
     cli->user.username = strdup(tmp->username);
     server_event_user_loaded(uuid_to_str(cli->user.user_id),
     cli->user.username);
+    server_event_user_logged_in(cli->user.user_id);
     dprintf(cli->fd, "001 Client connect [%s:%s]\n",
     uuid_to_str(cli->user.user_id), cli->user.username);
 }
@@ -29,6 +30,7 @@ static void create_client_user(client_t *cli, char *username)
     cli->user.connected = true;
     uuid_generate(cli->user.user_id);
     server_event_user_created(uuid_to_str(cli->user.user_id), username);
+    server_event_user_logged_in(cli->user.user_id);
     dprintf(cli->fd, "001 Client connect [%s:%s]\n",
     uuid_to_str(cli->user.user_id), cli->user.username);
     write_user_to_db(uuid_to_str(cli->user.user_id), cli->user.username);
