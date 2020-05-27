@@ -19,7 +19,7 @@ static char *clean_str(char *str, char c)
     for (size_t i = 0; str[i]; i++)
         if (str[i] != c)
             cnt++;
-    clean = malloc(sizeof(char) * cnt);
+    clean = malloc(sizeof(char) * (cnt + 1));
     if (clean == NULL)
         exit(84);
     for (size_t i = 0, a = 0; str[i]; i++)
