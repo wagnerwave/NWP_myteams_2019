@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include "logging_client.h"
-#include "../include/client.h"
+#include "client.h"
 
 void login_func(char *msg)
 {

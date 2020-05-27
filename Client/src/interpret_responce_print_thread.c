@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include "logging_client.h"
-#include "../include/client.h"
+#include "client.h"
 
 void channel_print_threads_func(char *msg)
 {

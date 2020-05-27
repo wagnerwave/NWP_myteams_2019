@@ -28,13 +28,15 @@ static void send_users_info(client_t **cli, int usr, char *username, char *uid)
     int connected = 0;
 
     for (size_t i = 0; i < FD_SETSIZE; i++) {
+        if (cli[i]->user.username == NULL)
+            continue;
         if (strcmp(cli[i]->user.username, username) == 0)
             if (cli[i]->user.connected == true) {
                 connected = 1;
                 break;
             }
     }
-    dprintf(cli[usr]->fd, "101 Users info [%s:%s:%d]\n", username, uid, connected);
+    dprintf(cli[usr]->fd, "008 Users info [%s:%s:%d]\n", username, uid, connected);
 }
 
 static void display_user_by_db(client_t **cli, int nb)
@@ -69,6 +71,5 @@ void users(client_t **cli, int nb, char **txt)
         dprintf(cli[nb]->fd, "Error: please login.\n");
         return;
     }
-    dprintf(cli[nb]->fd, "004 Get list of all users on the domain :\n");
     display_user_by_db(cli, nb);
 }
