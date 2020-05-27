@@ -29,16 +29,16 @@ static void send_users_info(client_t **cli, int usr, char *username, char *uid)
 
 void user(client_t **cli, int nb, char **txt)
 {
-    char *username = NULL;
+    char *uuid = NULL;
     user_t tmp;
 
     if (!cli[nb]->user.connected) {
         dprintf(cli[nb]->fd, "Error: please login.\n");
         return;
     }
-    if ((username = get_info_to_str(txt[1])) == NULL)
+    if ((uuid = get_info_to_str(txt[1])) == NULL)
         return;
-    compare_username_with_db(&tmp ,username);
+    compare_uuid_with_db(&tmp, uuid);
     if (tmp.username == NULL)
         return;
     send_users_info(cli, nb, tmp.username, uuid_to_str(tmp.user_id));

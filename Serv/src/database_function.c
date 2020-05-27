@@ -66,3 +66,24 @@ void compare_username_with_db(user_t *tmp, char const *username)
     tmp->username = NULL;
     fclose(fp);
 }
+
+void compare_uuid_with_db(user_t *tmp, char const *uuid)
+{
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_size = 0;
+    FILE *fp = fopen(USER_DB, "r");
+
+    if (!fp)
+        exit(84);
+    while (line_size != -1) {
+        line_size = getline(&line_buf, &line_buf_size, fp);
+        db_info_to_struct(tmp, line_buf);
+        if (strcmp(uuid_to_str(tmp->user_id), uuid) == 0) {
+            fclose(fp);
+            return;
+        }
+    }
+    tmp->username = NULL;
+    fclose(fp);
+}

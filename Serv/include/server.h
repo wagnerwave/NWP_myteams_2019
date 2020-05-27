@@ -91,6 +91,7 @@ int count_tab(char **tab);
 int file_exists();
 void write_user_to_db(char const *uid, char const *username);
 void compare_username_with_db(user_t *tmp, char const *username);
+void compare_uuid_with_db(user_t *tmp, char const *uuid);
 
 /****   INIT    ****/
 
