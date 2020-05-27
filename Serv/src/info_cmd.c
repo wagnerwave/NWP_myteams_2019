@@ -23,6 +23,20 @@ void help(client_t **cli, int nb, char **txt)
         dprintf(cli[nb]->fd, "%s %s\n", cmd[i].name, cmd[i].desc);
 }
 
+static void send_users_info(client_t **cli, int usr, char *username, char *uid)
+{
+    int connected = 0;
+
+    for (size_t i = 0; i < FD_SETSIZE; i++) {
+        if (strcmp(cli[i]->user.username, username) == 0)
+            if (cli[i]->user.connected == true) {
+                connected = 1;
+                break;
+            }
+    }
+    dprintf(cli[usr]->fd, "101 Users info [%s:%s:%d]\n", username, uid, connected);
+}
+
 static void display_user_by_db(client_t **cli, int nb)
 {
     char *line_buf = NULL;
@@ -43,7 +57,7 @@ static void display_user_by_db(client_t **cli, int nb)
         username = strtok(NULL, delim);
         if (username == NULL)
             break;
-        dprintf(cli[nb]->fd, "[USER]%s\n", username);
+       send_users_info(cli, nb, username, uid);
     }
     fclose(fp);
 }
