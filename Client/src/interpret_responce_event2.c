@@ -6,29 +6,35 @@
 */
 
 #include <string.h>
-#include "../../libs/myteams/logging_client.h"
+#include "logging_client.h"
 #include "../include/client.h"
 
 void event_team_created_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    check_arg(arg, 3);
-    client_event_team_created((const char *)arg[0], (const char *)arg[1], (const char *)arg[2]);
+    if (check_arg(arg, 3) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_event_team_created(arg[0], arg[1], arg[2]);
 }
 
 void event_channel_created_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    check_arg(arg, 3);
-    client_event_channel_created((const char *)arg[0], (const char *)arg[1], (const char *)arg[2]);
+    if (check_arg(arg, 3) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_event_channel_created(arg[0], arg[1], arg[2]);
 }
 
 void event_thread_created_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    check_arg(arg, 3);
-    client_event_channel_created((const char *)arg[0], (const char *)arg[1], (const char *)arg[2]);
+    if (check_arg(arg, 3) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_event_channel_created(arg[0], arg[1], arg[2]);
 }

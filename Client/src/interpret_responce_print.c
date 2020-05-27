@@ -6,37 +6,46 @@
 */
 
 #include <string.h>
-#include "../../libs/myteams/logging_client.h"
+#include "logging_client.h"
 #include "../include/client.h"
 
 void private_message_print_messages_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    check_arg(arg, 3);
-    client_private_message_print_messages((const char *)arg[0], arg[1], (const char *)arg[2]);
+    if (check_arg(arg, 3) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_private_message_print_messages(arg[0], arg[1], arg[2]);
 }
 
 void print_reply_created_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    //check_arg(arg, 4);
-    //client_print_reply_created(arg[0], arg[1], time_t reply_timestamp, arg[3]);
+    /*if (check_arg(arg, 4) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_print_reply_created(arg[0], arg[1],
+     time_t reply_timestamp, arg[3]);*/
 }
 
 void print_subscribed_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    check_arg(arg, 2);
-    client_print_subscribed((const char *)arg[0], (const char *)arg[1]);
+    if (check_arg(arg, 2) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_print_subscribed(arg[0], arg[1]);
 }
 
 void print_unsubscribed_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    check_arg(arg, 2);
-    client_print_unsubscribed((const char *)arg[0], (const char *)arg[1]);
+    if (check_arg(arg, 2) == 84)
+        printf("Error: not enought arguments for this option.\n");
+    else
+        client_print_unsubscribed(arg[0], arg[1]);
 }
