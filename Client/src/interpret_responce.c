@@ -6,6 +6,7 @@
 */
 
 #include <string.h>
+#include <stdlib.h>
 #include "logging_client.h"
 #include "client.h"
 

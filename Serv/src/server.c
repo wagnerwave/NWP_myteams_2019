@@ -16,6 +16,7 @@
 static volatile int running = 1;
 
 static void intHandler(int i) {
+    (void)i;
     running = 0;
     exit(0);
 }

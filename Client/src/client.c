@@ -37,6 +37,7 @@ int check_arg(char **arg, int number)
     }
     if (i != number)
         return (84);
+    return 0;
 }
 
 void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)

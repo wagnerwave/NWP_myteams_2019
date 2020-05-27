@@ -6,6 +6,7 @@
 */
 
 #include <uuid/uuid.h>
+#include <stdio.h>
 #include "logging_server.h"
 #include "server.h"
 

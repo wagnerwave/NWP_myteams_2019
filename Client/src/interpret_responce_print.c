@@ -7,7 +7,7 @@
 
 #include <string.h>
 #include "logging_client.h"
-#include "../include/client.h"
+#include "client.h"
 
 void private_message_print_messages_func(char *msg)
 {

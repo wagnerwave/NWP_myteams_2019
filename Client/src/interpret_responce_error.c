@@ -6,8 +6,8 @@
 */
 
 #include <string.h>
-#include "../../libs/myteams/logging_client.h"
-#include "../include/client.h"
+#include "logging_client.h"
+#include "client.h"
 
 void error_unauthorized_func(void)
 {

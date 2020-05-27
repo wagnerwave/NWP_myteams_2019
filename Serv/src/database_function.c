@@ -50,7 +50,7 @@ void compare_username_with_db(user_t *tmp, char const *username)
 {
     char *line_buf = NULL;
     size_t line_buf_size = 0;
-    size_t line_size = 0;
+    int line_size = 0;
     FILE *fp = fopen(USER_DB, "r");
 
     if (!fp)

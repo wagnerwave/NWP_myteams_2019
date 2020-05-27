@@ -5,8 +5,10 @@
 ** clean string for usage
 */
 
+#include <string.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "server.h"
 
 static char *clean_str(char *str, char c)
