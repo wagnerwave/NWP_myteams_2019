@@ -29,7 +29,7 @@ void send_func(client_t **cli, int nb, char **txt)
     for (i = 0; i < 1024; i++)
         if (uuid_compare(receiver, cli[i]->user.user_id) == 0)
             break;
-    dprintf(cli[i]->fd, "010 [%s:%s]\n", uuid_to_str(cli[nb]->user.user_id),
+    dprintf(cli[i]->fd, "101 [%s:%s]\n", uuid_to_str(cli[nb]->user.user_id),
     msg);
     server_event_private_message_sended(uuid_to_str(cli[nb]->user.user_id),
     dest_uid, msg);
