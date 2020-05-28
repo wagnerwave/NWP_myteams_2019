@@ -24,7 +24,8 @@ static void send_users_info(client_t **cli, int usr, char *username, char *uid)
                 break;
             }
     }
-    dprintf(cli[usr]->fd, "008 Users info [%s:%s:%d]\n", username, uid, connected);
+    dprintf(cli[usr]->fd, "008 Users info [%s:%s:%d]\n",
+    username, uid, connected);
 }
 
 static void display_users_by_db(client_t **cli, int nb)
@@ -47,7 +48,7 @@ static void display_users_by_db(client_t **cli, int nb)
         username = strtok(NULL, delim);
         if (username == NULL)
             break;
-       send_users_info(cli, nb, username, uid);
+        send_users_info(cli, nb, username, uid);
     }
     fclose(fp);
 }

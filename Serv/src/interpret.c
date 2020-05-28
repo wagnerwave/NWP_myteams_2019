@@ -37,6 +37,5 @@ void interpert_client_input(client_t **cli, int nb, char *input)
         interract_cmd_to_client(&cmd[i], cli, content, nb);
     else
         printf("SERVER GET : %s by user %d\n", input, nb);
-        //display and store message to environement chanelle etc...
     free_input(content);
 }

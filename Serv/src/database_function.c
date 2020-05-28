@@ -13,7 +13,7 @@
 #include <string.h>
 #include "server.h"
 
-int file_exists()
+int file_exists(void)
 {
     struct stat file_buffer;
 

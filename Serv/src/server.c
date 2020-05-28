@@ -13,11 +13,9 @@
 #include <stdio.h>
 #include "server.h"
 
-static volatile int running = 1;
-
-static void intHandler(int i) {
+static void intHandler(int i)
+{
     (void)i;
-    running = 0;
     exit(0);
 }
 
@@ -55,7 +53,8 @@ static void in_the_socket(server_t *srv, client_t **cli, int nb)
     }
 }
 
-void teams_server(server_t *srv) {
+void teams_server(server_t *srv)
+{
     client_t **cli = malloc(sizeof(client_t * ) * (FD_SETSIZE + 1));
     fd_set activ_group_fd;
     fd_set read_group_fd;
@@ -66,7 +65,7 @@ void teams_server(server_t *srv) {
     FD_ZERO(&activ_group_fd);
     FD_SET(srv->tcp_sock, &activ_group_fd);
     signal(SIGINT, intHandler);
-    while (running) {
+    while (1) {
         read_group_fd = activ_group_fd;
         if (select(FD_SETSIZE, &read_group_fd, NULL, NULL, NULL) < 0)
             exit(84);

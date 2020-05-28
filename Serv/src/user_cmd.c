@@ -24,7 +24,8 @@ static void send_users_info(client_t **cli, int usr, char *username, char *uid)
                 break;
             }
     }
-    dprintf(cli[usr]->fd, "008 Users info [%s:%s:%d]\n", username, uid, connected);
+    dprintf(cli[usr]->fd, "008 Users info [%s:%s:%d]\n",
+    username, uid, connected);
 }
 
 void user(client_t **cli, int nb, char **txt)

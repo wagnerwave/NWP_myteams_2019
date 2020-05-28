@@ -47,7 +47,7 @@ typedef struct thread_s {
     char *title;
     char *msg;
     uuid_t id;
-} thread_t ;
+} thread_t;
 
 typedef struct comment_s {
     char body[MAX_BODY_LENGTH];
