@@ -79,7 +79,7 @@ void parsing_data_nine_to_sixteen(char *msg, int code)
         case 12:
             thread_print_replies_func(msg);
             break;
-        case 13:
+        case 304:
             private_message_print_messages_func(msg);
             break;
         case 14:

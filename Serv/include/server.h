@@ -22,8 +22,9 @@
 #define MAX_NAME_LENGTH 32
 #define SPACE 32
 
-#define USER_DB "./user.db"
-#define MYTEAM_DB "./myteams.db"
+#define USER_DB "./database/user.db"
+#define MSG_DB  "./database/msg.db"
+#define MYTEAM_DB "./database/myteams.db"
 
 typedef struct server_s {
     struct sockaddr_in sin;
@@ -113,6 +114,7 @@ void login(client_t **cli, int nb, char **txt);
 void logout(client_t **cli, int nb, char **txt);
 
 void send_func(client_t **cli, int nb, char **txt);
+void messages(client_t **cli, int nb, char **txt);
 
 /****   ERROR   ****/
 

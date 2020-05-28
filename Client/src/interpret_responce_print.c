@@ -6,6 +6,7 @@
 */
 
 #include <string.h>
+#include <stdlib.h>
 #include "logging_client.h"
 #include "client.h"
 
@@ -16,7 +17,7 @@ void private_message_print_messages_func(char *msg)
     if (check_arg(arg, 3) == 84)
         printf("Error: not enought arguments for this option.\n");
     else
-        client_private_message_print_messages(arg[0], arg[1], arg[2]);
+        client_private_message_print_messages(arg[0], (time_t)atoi(arg[1]), arg[2]);
 }
 
 void print_reply_created_func(char *msg)

@@ -55,6 +55,7 @@ void compare_username_with_db(user_t *tmp, char const *username)
 
     if (!fp)
         exit(84);
+
     while (line_size != -1) {
         line_size = getline(&line_buf, &line_buf_size, fp);
         db_info_to_struct(tmp, line_buf);
