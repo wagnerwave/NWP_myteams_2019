@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "server.h"
 
-static void intHandler(int i)
+static void int_handler(int i)
 {
     (void)i;
     exit(0);
@@ -64,7 +64,7 @@ void teams_server(server_t *srv)
     default_init_client(cli);
     FD_ZERO(&activ_group_fd);
     FD_SET(srv->tcp_sock, &activ_group_fd);
-    signal(SIGINT, intHandler);
+    signal(SIGINT, int_handler);
     while (1) {
         read_group_fd = activ_group_fd;
         if (select(FD_SETSIZE, &read_group_fd, NULL, NULL, NULL) < 0)

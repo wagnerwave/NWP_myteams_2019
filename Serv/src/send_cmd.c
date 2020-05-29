@@ -34,15 +34,13 @@ static int get_dest(client_t **cli, uuid_t receiver)
     return i;
 }
 
-static void send_msg(client_t **cli, int nb, char *msg, uuid_t receiver,
+static void send_msg(client_t **cli, char *send_uid, char *msg, uuid_t receiver,
 char *dest_uid)
 {
     int i = get_dest(cli, receiver);
 
-    dprintf(cli[i]->fd, "101 [%s:%s]\n", uuid_to_str(cli[nb]->user.user_id),
-    msg);
-    server_event_private_message_sended(uuid_to_str(cli[nb]->user.user_id),
-    dest_uid, msg);
+    dprintf(cli[i]->fd, "101 [%s:%s]\n", send_uid, msg);
+    server_event_private_message_sended(send_uid, dest_uid, msg);
 }
 
 void send_func(client_t **cli, int nb, char **txt)
@@ -61,6 +59,6 @@ void send_func(client_t **cli, int nb, char **txt)
         msg = get_msg_to_array(txt);
     }
     uuid_parse(dest_uid, receiver);
-    send_msg(cli, nb, msg, receiver, dest_uid);
+    send_msg(cli, uuid_to_str(cli[nb]->user.user_id), msg, receiver, dest_uid);
     write_to_msg_db(cli, nb, msg, dest_uid);
 }
