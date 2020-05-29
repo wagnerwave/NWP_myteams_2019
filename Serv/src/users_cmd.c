@@ -40,8 +40,7 @@ static void display_users_by_db(client_t **cli, int nb)
 
     if (!fp)
         exit(84);
-    while (line_size != -1) {
-        line_size = getline(&line_buf, &line_buf_size, fp);
+    while ((line_size = getline(&line_buf, &line_buf_size, fp))!= -1) {
         uid = strtok(line_buf, delim);
         if (uid == NULL)
             break;
@@ -56,7 +55,7 @@ static void display_users_by_db(client_t **cli, int nb)
 void users(client_t **cli, int nb, char **txt)
 {
     (void)txt;
-    if (!cli[nb]->user.connected) {
+    if (cli[nb]->user.connected == false) {
         dprintf(cli[nb]->fd, "Error: please login.\n");
         return;
     }

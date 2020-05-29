@@ -43,14 +43,16 @@ static void read_msg_db(char *uuid, client_t **cli, int nb)
 
     if (ptr == NULL)
         return;
-    while (line_size != -1) {
-        line_size = getline(&line_buf, &line_buf_size, ptr);
+     while ((line_size = getline(&line_buf, &line_buf_size, ptr))!= -1) {
         if (strstr(line_buf, uuid) != NULL &&
             strstr(line_buf, uuid_to_str(cli[nb]->user.user_id)))
             get_msg_by_uuid(uuid, line_buf, cli, nb);
     }
+    if (line_buf)
+        free(line_buf);
+    if (uuid)
+        free(uuid);
     fclose(ptr);
-
 }
 
 void messages(client_t **cli, int nb, char **txt)
@@ -66,4 +68,6 @@ void messages(client_t **cli, int nb, char **txt)
         return;
     }
     read_msg_db(uuid_to_str(tmp.user_id), cli, nb);
+    if (uuid)
+        free(uuid);
 }

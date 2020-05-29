@@ -29,6 +29,7 @@ void logout_func(char *msg)
     else
         client_event_loggedout(arg[0], arg[1]);
      free_array(arg);
+     exit(0);
 }
 
 void receive_msg_func(char *msg)

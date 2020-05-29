@@ -55,16 +55,18 @@ void compare_username_with_db(user_t *tmp, char const *username)
 
     if (!fp)
         exit(84);
-
-    while (line_size != -1) {
-        line_size = getline(&line_buf, &line_buf_size, fp);
+    while ((line_size = getline(&line_buf, &line_buf_size, fp))!= -1) {
         db_info_to_struct(tmp, line_buf);
         if (strcmp(tmp->username, username) == 0) {
+            if (line_buf)
+                free(line_buf);
             fclose(fp);
             return;
         }
     }
     tmp->username = NULL;
+    if (line_buf)
+        free(line_buf);
     fclose(fp);
 }
 
@@ -77,14 +79,17 @@ void compare_uuid_with_db(user_t *tmp, char const *uuid)
 
     if (!fp)
         exit(84);
-    while (line_size != -1) {
-        line_size = getline(&line_buf, &line_buf_size, fp);
+    while ((line_size = getline(&line_buf, &line_buf_size, fp))!= -1) {
         db_info_to_struct(tmp, line_buf);
         if (strcmp(uuid_to_str(tmp->user_id), uuid) == 0) {
+            if (line_buf)
+                free(line_buf);
             fclose(fp);
             return;
         }
     }
+    if (line_buf)
+        free(line_buf);
     tmp->username = NULL;
     fclose(fp);
 }

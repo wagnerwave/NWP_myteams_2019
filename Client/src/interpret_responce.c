@@ -10,6 +10,33 @@
 #include "logging_client.h"
 #include "client.h"
 
+char *get_code_from_str(char *str)
+{
+    char *code = malloc(sizeof(char) * (3 + 1));
+    size_t i = 0;
+
+    if (code == NULL) {
+        printf("Error: Error failed malloc to get code.\n");
+        exit(84);
+    }
+    for (i = 0; i != 3; i++)
+        code[i] = str[i];
+    code[i] = '\0';
+    return code;
+}
+
+int check_arg(char **arg, int number)
+{
+    int i = 0;
+
+    while (arg[i] != NULL) {
+        i++;
+    }
+    if (i != number)
+        return (84);
+    return 0;
+}
+
 char **arg_to_array(char *msg)
 {
     char *token = NULL;

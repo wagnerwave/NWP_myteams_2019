@@ -10,37 +10,11 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <stdio.h>
 #include "client.h"
 
-char *get_code_from_str(char *str)
-{
-    char *code = malloc(sizeof(char) * (3 + 1));
-    size_t i = 0;
-
-    if (code == NULL) {
-        printf("Error: Error failed malloc to get code.\n");
-        exit(84);
-    }
-    for (i = 0; i != 3; i++)
-        code[i] = str[i];
-    code[i] = '\0';
-    return code;
-}
-
-int check_arg(char **arg, int number)
-{
-    int i = 0;
-
-    while (arg[i] != NULL){
-        i++;
-    }
-    if (i != number)
-        return (84);
-    return 0;
-}
-
-void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
+static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
 {
     int result = 0;
     char *input = NULL;
@@ -55,7 +29,7 @@ void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
             exit(0);
         }
         parsing_server_data(msg);
-    } else if (fd == 0) {
+    } else {
         input = get_next_line(0);
         if (input == NULL)
             return;
@@ -63,21 +37,50 @@ void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
     }
 }
 
+static int running(int change)
+{
+    static int i  = 1;
+
+    if (change == 1)
+        i = 0;
+    return i;
+}
+
+static void int_handler(int i)
+{
+    (void)i;
+    running(1);
+    return;
+}
+
+static void close_client(int fd, fd_set *grpfd, client_t *cli)
+{
+    close(fd);
+    dprintf(cli->tcp_sock ,"666 SIGKILL\n");
+    FD_CLR(fd, grpfd);
+}
+
 void client_run(client_t *cli)
 {
-    fd_set readfd;
     fd_set clientfd;
+    fd_set readfd;
+    int fd = 0;
 
     FD_ZERO(&clientfd);
     FD_SET(cli->tcp_sock, &clientfd);
     FD_SET(0, &clientfd);
-    while (1) {
+    signal(SIGINT, int_handler);
+    while (running(0)) {
         readfd = clientfd;
-        if (select(FD_SETSIZE, &readfd, NULL, NULL, NULL) < 0)
-            exit(84);
-        for (int fd = 0; fd < FD_SETSIZE; fd++) {
-            if (FD_ISSET(fd, &readfd))
+        if (select(FD_SETSIZE, &readfd, NULL, NULL, NULL) <= 0) {
+            close_client(fd, &clientfd, cli);
+            return;
+        }
+        for (fd = 0; fd < FD_SETSIZE; fd++) {
+            if (FD_ISSET(fd, &readfd)) {
                 in_the_socket(fd, &clientfd, cli->tcp_sock);
+            }
         }
     }
+    close_client(fd, &clientfd, cli);
 }

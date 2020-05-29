@@ -27,6 +27,8 @@ typedef struct client_s {
     int tcp_sock;
     const char *ip;
     unsigned short port;
+    int fd;
+    fd_set clientfd;
     user_t user_info;
 } client_t;
 
