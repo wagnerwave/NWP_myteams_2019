@@ -45,7 +45,8 @@ static void read_msg_db(char *uuid, client_t **cli, int nb)
         return;
     while (line_size != -1) {
         line_size = getline(&line_buf, &line_buf_size, ptr);
-        if (strstr(line_buf, uuid) != NULL)
+        if (strstr(line_buf, uuid) != NULL &&
+            strstr(line_buf, uuid_to_str(cli[nb]->user.user_id)))
             get_msg_by_uuid(uuid, line_buf, cli, nb);
     }
     fclose(ptr);
