@@ -17,6 +17,7 @@ void login_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_loggedin(arg[0], arg[1]);
+    free_array(arg);
 }
 
 void logout_func(char *msg)
@@ -27,6 +28,7 @@ void logout_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_loggedout(arg[0], arg[1]);
+     free_array(arg);
 }
 
 void receive_msg_func(char *msg)
@@ -37,6 +39,7 @@ void receive_msg_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_private_message_received(arg[0], arg[1]);
+     free_array(arg);
 }
 
 void thread_msg_receive_func(char *msg)
@@ -47,4 +50,5 @@ void thread_msg_receive_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_thread_message_received(arg[0], arg[1], arg[2], arg[3]);
+     free_array(arg);
 }

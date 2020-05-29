@@ -28,9 +28,12 @@ char **arg_to_array(char *msg)
 
 void parsing_server_data(char *msg)
 {
-    char *code = get_code_from_str(msg);
+    char *code_msg = get_code_from_str(msg);
+    int code = atoi(code_msg);
 
-    parsing_data_one_to_eight(msg, atoi(code));
+    if (code_msg)
+        free(code_msg);
+    parsing_data_one_to_eight(msg, code);
 }
 
 void parsing_data_one_to_eight(char *msg, int code)

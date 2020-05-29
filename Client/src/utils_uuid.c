@@ -18,3 +18,10 @@ char *uuid_to_str(uuid_t out)
     uuid_unparse(out, str);
     return str;
 }
+
+void free_array(char **arg)
+{
+    for (size_t i = 0; arg[i]; i++)
+        free(arg[i]);
+    free(arg);
+}
