@@ -50,11 +50,12 @@ void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
         result = read(tcp_sock, msg, 1024);
         msg[result] = '\0';
         if (strlen(msg) == 0) {
-            printf("Server close\n");
+            close(fd);
+            FD_CLR(fd, clientfd);
             exit(0);
         }
         parsing_server_data(msg);
-    } else if (fd == 0) {
+    } else {
         input = get_next_line(0);
         if (input == NULL)
             return;
