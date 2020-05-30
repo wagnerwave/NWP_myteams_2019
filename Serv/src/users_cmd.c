@@ -48,6 +48,7 @@ static void display_users_by_db(client_t **cli, int nb)
         if (username == NULL)
             break;
         send_users_info(cli, nb, username, uid);
+        (line_buf) ? free(line_buf), line_buf = NULL : 0;
     }
     fclose(fp);
 }
@@ -55,7 +56,7 @@ static void display_users_by_db(client_t **cli, int nb)
 void users(client_t **cli, int nb, char **txt)
 {
     (void)txt;
-    if (cli[nb]->user.connected == false) {
+    if (!cli[nb]->user.connected) {
         dprintf(cli[nb]->fd, "Error: please login.\n");
         return;
     }

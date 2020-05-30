@@ -29,7 +29,7 @@ static void client_management(client_t **cli, int nb)
         FD_CLR(cli[nb]->fd, cli[nb]->group_fd);
         return;
     }
-    interpert_client_input(cli, nb ,input);
+    interpert_client_input(cli, nb, input);
 }
 
 static void connection_client(int sock, fd_set *activ_group_fd)

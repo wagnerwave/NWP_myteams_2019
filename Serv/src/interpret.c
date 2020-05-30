@@ -30,8 +30,10 @@ void interpert_client_input(client_t **cli, int nb, char *input)
     char **content = strtowordarray(input, SPACE);
     size_t i = 0;
 
-    if (strcmp(input, "666 SIGKILL") == 0)
+    if (strcmp(input, "666 SIGKILL") == 0) {
         logout(cli, nb, NULL);
+        return;
+    }
     for (i = 0; cmd[i].name != NULL; i++)
         if (strcmp(cmd[i].name, content[0]) == 0)
             break;

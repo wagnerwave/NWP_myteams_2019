@@ -63,10 +63,11 @@ void compare_username_with_db(user_t *tmp, char const *username)
             fclose(fp);
             return;
         }
+        if (line_buf)
+            free(line_buf);
+        line_buf = NULL;
     }
     tmp->username = NULL;
-    if (line_buf)
-        free(line_buf);
     fclose(fp);
 }
 
