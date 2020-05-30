@@ -25,6 +25,7 @@ char *get_code_from_str(char *str)
     return code;
 }
 
+
 int check_arg(char **arg, int number)
 {
     int i = 0;
@@ -57,23 +58,15 @@ void parsing_server_data(char *msg)
 {
     char *code_msg = get_code_from_str(msg);
     int code = atoi(code_msg);
+    size_t i = 0;
 
     if (code_msg)
         free(code_msg);
-    parsing_data_1_to_5(msg, code);
-}
-
-void parsing_data_no_command(char *msg, int code)
-{
-    if (code != 120 && code != 210
-        && code != 101 && code != 4 && code != 5
-        && code != 6 && code != 7 && code != 8
-        && code != 9 && code != 10 && code != 11
-        && code != 12 && code != 304 && code != 14
-        && code != 15 && code != 16 && code != 17
-        && code != 18 && code != 19 && code != 20 && code != 21
-        && code != 22 && code != 23 && code != 24
-        && code != 25 && code != 26 && code != 27
-        && code != 28 && code != 29)
-        printf("%s", msg);
+    for (i = 0; icmd[i].code != 0; i++)
+        if (icmd[i].code == code)
+            break;
+    if (icmd[i].code != 0)
+        icmd[i].func(msg);
+    else
+        printf("%s\n", msg);
 }

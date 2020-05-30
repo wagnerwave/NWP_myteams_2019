@@ -32,6 +32,13 @@ typedef struct client_s {
     user_t user_info;
 } client_t;
 
+typedef struct interpert_command_by_server_s {
+    const int  code;
+    int (*func)(char *msg);
+} inter_cmd_t;
+
+extern const inter_cmd_t icmd[];
+
 void client_run(client_t *cli);
 
 /****   TOOLS   ****/
