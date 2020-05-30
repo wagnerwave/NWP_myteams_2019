@@ -36,6 +36,8 @@ void client_run(client_t *cli);
 
 /****   TOOLS   ****/
 
+void int_handler(int i);
+int running(int change);
 char *get_next_line(int fd);
 char **strtowordarray(char *str, char delim);
 char *uuid_to_str(uuid_t out);

@@ -14,6 +14,17 @@
 #include <stdio.h>
 #include "client.h"
 
+static void reception_msg(char *msg)
+{
+    char **recept_packet = NULL;
+
+    recept_packet = strtowordarray(msg, '\n');
+    for (int i = 0; recept_packet[i]; i++)
+        parsing_server_data(recept_packet[i]);
+    if (recept_packet != NULL)
+        free_array(recept_packet);
+}
+
 static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
 {
     int result = 0;
@@ -28,29 +39,14 @@ static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
             FD_CLR(fd, clientfd);
             exit(0);
         }
-        parsing_server_data(msg);
+        reception_msg(msg);
     } else {
         input = get_next_line(0);
         if (input == NULL)
             return;
         dprintf(tcp_sock, "%s\n", input);
+        (input) ? free(input) : 0;
     }
-}
-
-static int running(int change)
-{
-    static int i  = 1;
-
-    if (change == 1)
-        i = 0;
-    return i;
-}
-
-static void int_handler(int i)
-{
-    (void)i;
-    running(1);
-    return;
 }
 
 static void close_client(int fd, fd_set *grpfd, client_t *cli)

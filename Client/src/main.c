@@ -10,6 +10,22 @@
 #include <string.h>
 #include "client.h"
 
+int running(int change)
+{
+    static int i  = 1;
+
+    if (change == 1)
+        i = 0;
+    return i;
+}
+
+void int_handler(int i)
+{
+    (void)i;
+    running(1);
+    return;
+}
+
 int main(int ac, char **av)
 {
     client_t *cli = malloc(sizeof(client_t));
@@ -25,5 +41,6 @@ int main(int ac, char **av)
         init_client(cli, av[1], (unsigned short)atoi(av[2]));
         client_run(cli);
     }
+    free(cli);
     return 0;
 }
