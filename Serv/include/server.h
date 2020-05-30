@@ -54,10 +54,18 @@ typedef struct comment_s {
     char body[MAX_BODY_LENGTH];
 } comment_t;
 
+typedef enum context_e {
+    NO_CONTEXT = 0,
+    TEAM,
+    CHANNEL,
+    THREAD
+} context_t;
+
 typedef struct user_s {
     char *username;
     uuid_t user_id;
     bool connected;
+    context_t status;
 } user_t;
 
 typedef struct client_s {
@@ -109,6 +117,8 @@ void teams_server(server_t *svr);
 void help(client_t **cli, int nb, char **txt);
 void users(client_t **cli, int nb, char **txt);
 void user(client_t **cli, int nb, char **txt);
+
+void info_func(client_t **cli, int nb, char **txt);
 
 void login(client_t **cli, int nb, char **txt);
 void logout(client_t **cli, int nb, char **txt);

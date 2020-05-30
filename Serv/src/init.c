@@ -16,6 +16,7 @@ static void init_client_func(client_t *cli)
     cli->group_fd = 0;
     cli->user.username = NULL;
     cli->user.connected = false;
+    cli->user.status = NO_CONTEXT;
 }
 
 void default_init_client(client_t **cli)
