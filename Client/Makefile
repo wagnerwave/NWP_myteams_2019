@@ -27,7 +27,9 @@ SRC		=	$(D_SRC)main.c \
 			$(D_SRC)interpret_responce_print_channel.c \
 			$(D_SRC)interpret_responce_print_team.c \
 			$(D_SRC)interpret_responce_print_thread.c \
-			$(D_SRC)interpret_responce_print_user.c
+			$(D_SRC)interpret_responce_print_user.c	\
+			$(D_SRC)parsing_data.c	\
+			$(D_SRC)parsing_data_func_print.c
 
 OBJ		=	$(SRC:.c=.o)
 

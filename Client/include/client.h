@@ -76,11 +76,14 @@ char **arg_to_array(char *msg);
 int check_arg(char **arg, int number);
 char *get_code_from_str(char *str);
 void parsing_server_data(char *msg);
-void parsing_data_one_to_eight(char *msg, int code);
-void parsing_data_nine_to_sixteen(char *msg, int code);
-void parsing_data_seventeen_to_twenty_four(char *msg, int code);
-void parsing_data_twenty_five_to_twenty_nine(char *msg, int code);
+void parsing_data_1_to_5(char *msg, int code);
+void parsing_data_6_to_10(char *msg, int code);
+void parsing_data_11_to_15(char *msg, int code);
+void parsing_data_16_to_19(char *msg, int code);
+void parsing_data_20_to_24(char *msg, int code);
+void parsing_data_25_to_29(char *msg, int code);
 void parsing_data_no_command(char *msg, int code);
+
 
 /****   INIT    ****/
 
