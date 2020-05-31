@@ -33,6 +33,7 @@ void init_client(client_t *cli, int sock, fd_set *acv_grpfd)
 {
     cli->fd = sock;
     cli->group_fd = acv_grpfd;
+    
 }
 
 void init_server(server_t *srv, unsigned short port)
@@ -52,4 +53,5 @@ void init_server(server_t *srv, unsigned short port)
         exit(84);
     if (listen(srv->tcp_sock, MAX_CONNECTION_SERVER) < 0)
         exit(84);
+    srv->teams_list = vector_create();
 }

@@ -16,7 +16,6 @@
 #include <uuid/uuid.h>
 #include <string.h>
 #include <stdbool.h>
-#include "vector.h"
 
 #define MAX_CONNECTION_SERVER 1024
 #define MAX_DESCRIPTION_LENGTH 255
@@ -32,38 +31,7 @@ typedef struct server_s {
     struct sockaddr_in sin;
     unsigned short port;
     int tcp_sock;
-    vector_t *teams_list;
 } server_t;
-
-typedef struct team_s {
-    char name[MAX_NAME_LENGTH];
-    char desc[MAX_DESCRIPTION_LENGTH];
-    uuid_t id;
-    vector_t *channels_list;
-} team_t;
-
-typedef struct channel_s {
-    char  name[MAX_NAME_LENGTH];
-    char desc[MAX_DESCRIPTION_LENGTH];
-    uuid_t id;
-    vector_t *threads_list;
-} channel_t;
-
-typedef struct thread_s {
-    char *title;
-    char *body;
-    uuid_t author_id;
-    uuid_t id;
-    time_t timestamp;
-    vector_t *comments_list;
-} thread_t;
-
-typedef struct comment_s {
-    uuid_t author_id;
-    uuid_t id;
-    time_t timestamp;
-    char body[MAX_BODY_LENGTH];
-} comment_t;
 
 typedef enum context_e {
     NO_CONTEXT = 0,
@@ -122,7 +90,11 @@ void default_init_client(client_t **cli);
 /****   SERVER  ****/
 
 void teams_server(server_t *srv);
-
+//// create functions
+void create_team(team_t *team, client_t **cli, uuid_t receiver);
+void create_channel(channel_t *channel, client_t **cli, uuid_t receiver);
+void create_thread(thread_t *thread, client_t **cli, uuid_t receiver);
+void create_comment(comment_t *comment, client_t **cli, uuid_t receiver);
 //// listing functions
 void list_teams(server_t *serv, client_t **cli, uuid_t receiver);
 void list_channels(team_t *team, client_t **cli, uuid_t receiver);
