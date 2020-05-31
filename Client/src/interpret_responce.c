@@ -19,7 +19,7 @@ char *get_code_from_str(char *str)
         printf("Error: Error failed malloc to get code.\n");
         exit(84);
     }
-    for (i = 0; i != 3; i++)
+    for (i = 0; i < 3; i++)
         code[i] = str[i];
     code[i] = '\0';
     return code;

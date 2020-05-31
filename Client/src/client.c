@@ -43,7 +43,7 @@ static void in_the_socket(int fd, fd_set *clientfd, int tcp_sock)
     } else {
         input = get_next_line(0);
         if (input == NULL)
-            return;
+            running(1);
         dprintf(tcp_sock, "%s\n", input);
         (input) ? free(input) : 0;
     }

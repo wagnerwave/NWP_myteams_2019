@@ -76,7 +76,7 @@ int count_tab(char **tab);
 
 /****   DB_FUNC ****/
 
-int file_exists();
+int file_exists(void);
 void write_user_to_db(char const *uid, char const *username);
 void compare_username_with_db(user_t *tmp, char const *username);
 void compare_uuid_with_db(user_t *tmp, char const *uuid);
@@ -138,7 +138,6 @@ comment_t *new_comment(char *body, uuid_t author);
 char *comment_get_author(comment_t *comment);
 char *comment_get_body(comment_t *comment);
 time_t comment_get_timestamp(comment_t *comment);
-
 
 /****   CMD     ****/
 

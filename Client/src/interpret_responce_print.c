@@ -26,11 +26,11 @@ void print_reply_created_func(char *msg)
 {
     char **arg = arg_to_array(msg);
 
-    /*if (check_arg(arg, 4) == 84)
+    if (check_arg(arg, 4) == 84)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_reply_created(arg[0], arg[1],
-     time_t reply_timestamp, arg[3]);*/
+        0, arg[3]);
     free_array(arg);
 }
 
