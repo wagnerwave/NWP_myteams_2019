@@ -18,7 +18,7 @@ void print_users_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_users(arg[1], arg[0], atoi(arg[2]));
-     free_array(arg);
+    free_array(arg);
 }
 
 void print_user_func(char *msg)
@@ -29,5 +29,5 @@ void print_user_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_user(arg[1], arg[0], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }

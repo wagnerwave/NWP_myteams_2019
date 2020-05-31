@@ -17,7 +17,7 @@ void channel_print_threads_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_channel_print_threads(arg[0], arg[1], arg[2], arg[3], arg[4]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void thread_print_replies_func(char *msg)
@@ -40,7 +40,7 @@ void print_thread_func(char *msg)
     else
         client_print_thread(arg[0], arg[1], 0,
         arg[3], arg[4]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void print_thread_created_func(char *msg)
@@ -52,5 +52,5 @@ void print_thread_created_func(char *msg)
     else
         client_print_thread_created(arg[0], arg[1], 0,
         arg[3], arg[4]);
-     free_array(arg);
+    free_array(arg);
 }
