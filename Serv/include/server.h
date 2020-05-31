@@ -14,7 +14,9 @@
 #include <netinet/ip.h>
 #include <sys/queue.h>
 #include <uuid/uuid.h>
+#include <string.h>
 #include <stdbool.h>
+#include "vector.h"
 
 #define MAX_CONNECTION_SERVER 1024
 #define MAX_DESCRIPTION_LENGTH 255
@@ -30,27 +32,36 @@ typedef struct server_s {
     struct sockaddr_in sin;
     unsigned short port;
     int tcp_sock;
+    vector_t *teams_list;
 } server_t;
 
-typedef struct teams_s {
+typedef struct team_s {
     char name[MAX_NAME_LENGTH];
     char desc[MAX_DESCRIPTION_LENGTH];
     uuid_t id;
-} teams_t;
+    vector_t *channels_list;
+} team_t;
 
 typedef struct channel_s {
     char  name[MAX_NAME_LENGTH];
     char desc[MAX_DESCRIPTION_LENGTH];
     uuid_t id;
+    vector_t *threads_list;
 } channel_t;
 
 typedef struct thread_s {
     char *title;
-    char *msg;
+    char *body;
+    uuid_t author_id;
     uuid_t id;
+    time_t timestamp;
+    vector_t *comments_list;
 } thread_t;
 
 typedef struct comment_s {
+    uuid_t author_id;
+    uuid_t id;
+    time_t timestamp;
     char body[MAX_BODY_LENGTH];
 } comment_t;
 
@@ -110,7 +121,52 @@ void default_init_client(client_t **cli);
 
 /****   SERVER  ****/
 
-void teams_server(server_t *svr);
+void teams_server(server_t *srv);
+
+//// listing functions
+void list_teams(server_t *serv, client_t **cli, uuid_t receiver);
+void list_channels(team_t *team, client_t **cli, uuid_t receiver);
+void list_threads(channel_t *chan, client_t **cli, uuid_t receiver);
+void list_comments(thread_t *thread, client_t **cli, uuid_t receiver);
+//// info printing functions
+void print_team(team_t *team, client_t **cli, uuid_t receiver);
+void print_channel(channel_t *channel, client_t **cli, uuid_t receiver);
+void print_thread(thread_t *thread, client_t **cli, uuid_t receiver);
+void print_comment(comment_t *comment, client_t **cli, uuid_t receiver);
+
+/**** TEAMS     ****/
+team_t *new_team(char *name, char *desc);
+char *team_get_name(team_t *t);
+char *team_get_id(team_t *t);
+vector_t *team_get_channels(team_t *t);
+void team_set_name(team_t *t, char *name);
+
+/**** CHANNELS     ****/
+
+channel_t *new_channel(char *name, char *desc);
+char *channel_get_name(channel_t *t);
+char  *channel_get_id(channel_t *t);
+vector_t *channel_get_threads(channel_t *t);
+void channel_set_name(channel_t *t, char *name);
+
+/**** THREADS    ****/
+
+thread_t *new_thread(char *title, char *desc, uuid_t author);
+char *thread_get_title(thread_t *t);
+char *thread_get_body(thread_t *t);
+char *thread_get_uuid(thread_t *t);
+time_t thread_get_timestamp(thread_t *t);
+vector_t *thread_get_comments(thread_t *t);
+void thread_set_title(thread_t *t, char *title);
+thread_t *get_thread_by_id(uuid_t id);
+
+/****  COMMENTS   ****/
+
+comment_t *new_comment(char *body, uuid_t author);
+char *comment_get_author(comment_t *comment);
+char *comment_get_body(comment_t *comment);
+time_t comment_get_timestamp(comment_t *comment);
+
 
 /****   CMD     ****/
 
@@ -131,6 +187,6 @@ void messages(client_t **cli, int nb, char **txt);
 void error_msg(char *msg);
 void error_n_quit(char *msg);
 
-/****   ****    ****/
+/****     ****/
 
 #endif /* !SERVER_H_ */
