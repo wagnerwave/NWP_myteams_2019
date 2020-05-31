@@ -9,13 +9,14 @@
 #include "logging_client.h"
 #include "client.h"
 
-void error_unauthorized_func(void)
+void error_unauthorized_func(char *msg)
 {
+    (void)msg;
     client_error_unauthorized();
 }
 
-void error_already_exist_func(void)
+void error_already_exist_func(char *msg)
 {
+    (void)msg;
     client_error_already_exist();
 }
-

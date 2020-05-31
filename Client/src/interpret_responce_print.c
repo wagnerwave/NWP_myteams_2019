@@ -17,8 +17,9 @@ void private_message_print_messages_func(char *msg)
     if (check_arg(arg, 3) == 84)
         printf("Error: not enought arguments for this option.\n");
     else
-        client_private_message_print_messages(arg[0], (time_t)atoi(arg[1]), arg[2]);
-     free_array(arg);
+        client_private_message_print_messages(arg[0],
+        (time_t)atoi(arg[1]), arg[2]);
+    free_array(arg);
 }
 
 void print_reply_created_func(char *msg)
@@ -30,7 +31,7 @@ void print_reply_created_func(char *msg)
     else
         client_print_reply_created(arg[0], arg[1],
      time_t reply_timestamp, arg[3]);*/
-     free_array(arg);
+    free_array(arg);
 }
 
 void print_subscribed_func(char *msg)
@@ -41,7 +42,7 @@ void print_subscribed_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_subscribed(arg[0], arg[1]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void print_unsubscribed_func(char *msg)
@@ -52,5 +53,5 @@ void print_unsubscribed_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_unsubscribed(arg[0], arg[1]);
-     free_array(arg);
+    free_array(arg);
 }

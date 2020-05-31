@@ -17,7 +17,7 @@ void error_unknown_team_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_private_message_print_messages(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void error_unknown_channel_func(char *msg)
@@ -28,7 +28,7 @@ void error_unknown_channel_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_error_unknown_channel(arg[0]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void error_unknown_thread_func(char *msg)
@@ -39,7 +39,7 @@ void error_unknown_thread_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_error_unknown_thread(arg[0]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void error_unknown_user_func(char *msg)
@@ -50,5 +50,5 @@ void error_unknown_user_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_error_unknown_user(arg[0]);
-     free_array(arg);
+    free_array(arg);
 }

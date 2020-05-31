@@ -18,9 +18,9 @@ const cmd_t cmd[] = {
     {"/send", &send_func, "[user|message_body]: send a message to a user"},
     {"/messages", &messages, "[user]:list all messages exchange with an user"},
     {"/info", &info_func, "[teams|channel|thread]: info option"},
+    {"/use", NULL, "[teams|channel|thread]: use specify a context"},
     {"/subscribe", NULL, "[team]: subscribe to the event of a team"},
     {"/subscribed", NULL, "[team]: list all users subscribed to a team"},
-    {"/use", NULL, "[teams|channel|thread]: use specify a context"},
     {"/create", NULL, "[teams|channel|thread]: create option"},
     {"/list", NULL, "[teams|channel|thread]: list option"},
     {NULL, NULL, NULL}

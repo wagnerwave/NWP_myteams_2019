@@ -17,7 +17,7 @@ void team_print_channels_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_team_print_channels(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void print_channel_func(char *msg)
@@ -28,7 +28,7 @@ void print_channel_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_channel(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void print_channel_created_func(char *msg)
@@ -39,5 +39,5 @@ void print_channel_created_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_print_channel_created(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }

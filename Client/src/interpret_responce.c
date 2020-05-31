@@ -25,7 +25,6 @@ char *get_code_from_str(char *str)
     return code;
 }
 
-
 int check_arg(char **arg, int number)
 {
     int i = 0;

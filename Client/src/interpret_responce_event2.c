@@ -17,7 +17,7 @@ void event_team_created_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_team_created(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void event_channel_created_func(char *msg)
@@ -28,7 +28,7 @@ void event_channel_created_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_channel_created(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }
 
 void event_thread_created_func(char *msg)
@@ -39,5 +39,5 @@ void event_thread_created_func(char *msg)
         printf("Error: not enought arguments for this option.\n");
     else
         client_event_channel_created(arg[0], arg[1], arg[2]);
-     free_array(arg);
+    free_array(arg);
 }

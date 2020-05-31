@@ -52,8 +52,8 @@ void free_array(char **arg);
 
 /****   CODE FUNC   ****/
 
-void error_unauthorized_func(void);
-void error_already_exist_func(void);
+void error_unauthorized_func(char *msg);
+void error_already_exist_func(char *msg);
 void error_unknown_team_func(char *msg);
 void error_unknown_channel_func(char *msg);
 void error_unknown_thread_func(char *msg);
@@ -85,14 +85,6 @@ char **arg_to_array(char *msg);
 int check_arg(char **arg, int number);
 char *get_code_from_str(char *str);
 void parsing_server_data(char *msg);
-void parsing_data_1_to_5(char *msg, int code);
-void parsing_data_6_to_10(char *msg, int code);
-void parsing_data_11_to_15(char *msg, int code);
-void parsing_data_16_to_19(char *msg, int code);
-void parsing_data_20_to_24(char *msg, int code);
-void parsing_data_25_to_29(char *msg, int code);
-void parsing_data_no_command(char *msg, int code);
-
 
 /****   INIT    ****/
 
